@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SearchBr from '@/components/layout/SearchBr';
 async function hadelProduct({ searchParams }) {
+    await dbConnect();
   const products = await Product.find({ name: searchParams.value });
   return (
     <>
