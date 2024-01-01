@@ -33,7 +33,7 @@ const data = {
       rating: 4.5,
       numReviews: 5,
       description: 'hight quality',
-      capacity: [128, 256],
+      // capacity: [128, 256],
     },
     {
       name: 'apple14',
