@@ -1,9 +1,9 @@
-import SearchBr from "@/components/layout/SearchBr";
-import Product from "@/models/Products"
-import Image from "next/image";
-import Link from "next/link";
+import SearchBr from '@/components/layout/SearchBr';
+import Product from '@/models/Products';
+import Image from 'next/image';
+import Link from 'next/link';
 async function productsPage() {
-    const products=await Product.find()
+  const products = await Product.find();
   return (
     <>
       <SearchBr />
@@ -40,4 +40,4 @@ async function productsPage() {
   );
 }
 
-export default productsPage
+export default productsPage;
