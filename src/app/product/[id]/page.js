@@ -29,7 +29,6 @@ async function product({ params }) {
           <p> سال ساخت:{product.model}</p>
           <p>قیمت :{product.price}</p>
           <p>کیفیت :{product.description}</p>
-          <p>ظرفیتها:{product.capacity}گیگ</p>
           <Link href={``}>
             <button className="bg-primary text-white px-6 py-1 rounded-full w-full">
               خرید
