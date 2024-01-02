@@ -40,8 +40,3 @@ async function CategorySlice({ searchParams }) {
 export default CategorySlice;
 
 
-// {
-//     "version":2,
-//     "builds":[ {"app":"./page.js","use": "@vercel/node"}],
-//     "routes":[{"app":"/(.*)","dest":"/"}]
-// }
