@@ -23,7 +23,7 @@ async function ListProducts() {
             height={100}
             alt="mobile"
             src={pro.img}
-            priority={true}
+            priority={false}
             className="flex-auto"
           />
           <div className="text-gray-500 flex-1 ">

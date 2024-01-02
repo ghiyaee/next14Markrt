@@ -14,11 +14,11 @@ async function CategorySlice({ searchParams }) {
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
         >
           <Image
-            width={144}
+            width={100}
             height={100}
             alt="mobile"
             src={pro.img}
-            priority={true}
+            priority={false}
           />
           <div className="text-gray-500">
             <p> برند: {pro.name}</p>

@@ -21,7 +21,7 @@ async function product({ params }) {
           height={100}
           alt="mobile"
           src={product.img}
-          priority={true}
+          priority={false}
         />
 
         <div className="text-gray-500 ">

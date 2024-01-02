@@ -30,7 +30,7 @@ const Hero = ({children}) => {
             src={images[index]}
             alt={`Image ${index + 1}`}
             key={images}
-            priority={true}
+            priority={false}
             className=" transform transition-all duration-[2000s]"
           />
         </div>
