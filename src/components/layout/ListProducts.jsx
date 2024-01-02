@@ -19,7 +19,7 @@ async function ListProducts() {
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
         >
           <Image
-            width={200}
+            width={100}
             height={100}
             alt="mobile"
             src={pro.img}

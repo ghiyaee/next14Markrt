@@ -11,12 +11,12 @@ async function productsPage() {
         {products?.map((pro) => (
           <div
             key={pro.id}
-            className=" flex  justify-center items-center gap-8 p-4 
+            className=" flex  justify-center items-center gap-8 p-12 
         hover:scale-105 duration-700 rounded-lg 
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
           >
             <Image
-              width={144}
+              width={100}
               height={100}
               alt="mobile"
               src={pro.img}
