@@ -1,7 +1,6 @@
 import Product from '@/models/Products';
 import Image from 'next/image';
 import Link from 'next/link';
-
 async function CategorySlice({ searchParams }) {
   const products = await Product.find({ brand: searchParams.value });
   return (
