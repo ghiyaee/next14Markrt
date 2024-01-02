@@ -1,5 +1,21 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  "version": 2,
+  "builds": [
+    {
+      "src": "./src/app/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    },
+    
+  ]
+}
+
 
 module.exports = nextConfig
 module.exports = {
