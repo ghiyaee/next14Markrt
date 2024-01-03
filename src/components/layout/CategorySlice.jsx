@@ -1,7 +1,6 @@
 import Product from '@/models/Products';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Console } from 'console';
 async function CategorySlice({ searchParams }) {
   let products;
   try {
