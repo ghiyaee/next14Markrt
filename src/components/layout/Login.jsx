@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 import User from '@/models/User';
-import dbConnect from '@/dbConnect';
 import { redirect } from 'next/navigation';
 import bcrypt from 'bcrypt';
 function Login() {

@@ -8,11 +8,9 @@ export default async function Home() {
     <>
       <SearchBr />
       <Hero>
-        <Slider/>
-        <div  className='text-center'>دسته بندی محصولات</div>
+        <Slider />
         <Category />
-        <div className='text-center'>برترین انتخاب</div>
-        <ListProducts  />
+        <ListProducts />
       </Hero>
     </>
   );

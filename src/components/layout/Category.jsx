@@ -9,11 +9,15 @@ const link = [
 function Category() {
   return (
     <div className="container m-auto flex flex-col gap-[60px] items-center mt-0">
-      <div className="flex flex-wrap flex-col md:flex-row justify-center gap-[20px] ">
+      <h2 className="text-center text-gary-400 text-xl">دسته بندی محصولات</h2>
+      <div className="flex flex-wrap  flex-col md:flex-row justify-center gap-[20px] ">
         {link.map((link) => (
           <div key={link.name} className=" ">
             <Link
-              href={{ pathname:`/mobile/${link.category}`,query:{value:link.category}}}
+              href={{
+                pathname: `/mobile/${link.category}`,
+                query: { value: link.category },
+              }}
             >
               <button
                 className="w-36 h-36  bg-gradient-to-tr

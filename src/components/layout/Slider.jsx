@@ -49,6 +49,7 @@ function Slider() {
   };
   return (
     <section className="relative bg-primary rounded-lg w-full p-5">
+
       <h2 className="text-white">محصولات در یک نگاه پس بزن بریم</h2>
       <div className=" overflow-hidden flex  items-center ">
         {images.map((i, idx) => (

@@ -3,12 +3,10 @@ import Image from 'next/image';
 import dbConnect from '@/dbConnect';
 import Product from '@/models/Products';
 import Link from 'next/link';
-import data from '../../../data';
+
 async function ListProducts() {
   await dbConnect();
-  // await Product.deleteMany({})
-  // await Product.insertMany(data.products)
-  const products = await Product.find();
+    const products = await Product.find();
   return (
     <section className="flex  md:flex-row justify-center flex-wrap gap-10 mt-0">
       {products?.map((pro) => (
