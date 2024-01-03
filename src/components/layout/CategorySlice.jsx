@@ -1,11 +1,12 @@
 import Product from '@/models/Products';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Console } from 'console';
 async function CategorySlice({ searchParams }) {
   let products;
   try {
     products = await Product.find({ brand: searchParams.value });
-    console.log(products);
+    console.log(products)
   } catch (error) {
     console.error('error singel product',error);
   }
