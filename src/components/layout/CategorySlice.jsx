@@ -4,7 +4,8 @@ import Link from 'next/link';
 async function CategorySlice({ searchParams }) {
   let products;
   try {
-     products = await Product.find({ brand: searchParams.value });
+    products = await Product.find({ brand: searchParams.value });
+    console.log(products);
   } catch (error) {
     console.error('error singel product',error);
   }
