@@ -1,13 +1,13 @@
-import Product from '@/models/Products';
+const Product = require('@/models/Products');
 import Image from 'next/image';
 import Link from 'next/link';
 async function CategorySlice({ searchParams }) {
   let products;
   try {
     products = await Product.find({ brand: searchParams.value });
-    console.log(products)
+    console.log(products);
   } catch (error) {
-    console.error('error singel product',error);
+    console.error('error singel product', error);
   }
   return (
     <section className="flex flex-col md:flex-row justify-center flex-wrap gap-10 mt-0">
@@ -43,5 +43,3 @@ async function CategorySlice({ searchParams }) {
 }
 
 export default CategorySlice;
-
-

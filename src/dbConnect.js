@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-export default async function dbConnect() {
+const mongoose = require('mongoose');
+ async function dbConnect() {
   try {
     if (!process.env.MONGOURL)
       console.log('Failed to read environment variables');
@@ -9,3 +9,4 @@ export default async function dbConnect() {
     log.error('error connect to db', error);
   }
 }
+module.exports=dbConnect
