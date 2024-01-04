@@ -21,10 +21,10 @@ const images = [
 import Image from 'next/image';
 function Slider() {
   let [move, setMove] = useState({
-    move: `transform -translate-x-[10rem]`,
+    move: `transform -translate-x-[1rem]`,
   });
   const handelArroLeft = () => {
-    if (move.move == `transform -translate-x-[10rem]`)
+    if (move.move == `transform -translate-x-[1rem]`)
       setMove({ move: `transform translate-x-[10rem]` });
     if (move.move == `transform translate-x-[10rem]`)
       setMove({ move: `transform translate-x-[20rem]` });
@@ -45,7 +45,7 @@ function Slider() {
     if (move.move == `transform translate-x-[20rem]`)
       setMove({ move: `transform translate-x-[10rem]` });
     if (move.move == `transform translate-x-[10rem]`)
-      setMove({ move: `transform -translate-x-[10rem]` });
+      setMove({ move: `transform -translate-x-[1rem]` });
   };
   return (
     <section className="relative bg-primary rounded-lg w-full p-5">
@@ -71,7 +71,7 @@ function Slider() {
       </div>
       <button
         className={`${
-          move.move === 'transform -translate-x-[10rem]' ? 'hidden' : 'block'
+          move.move === 'transform -translate-x-[1rem]' ? 'hidden' : 'block'
         } 
            absolute top-[50%] -translate-y-[50%] w-10 h-10 text-2xl 
          bg-gray-50 rounded-full right-1  flex items-center justify-center `}
