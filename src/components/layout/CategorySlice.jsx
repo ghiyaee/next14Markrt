@@ -1,13 +1,13 @@
 const Product = require('@/models/Products');
 import Image from 'next/image';
 import Link from 'next/link';
- function CategorySlice({  products }) {
-  // let products;
-  // try {
-  //   products = await Product.find({ brand: searchParams.value });
-  // } catch (error) {
-  //   console.error('error singel product', error)
-  // }
+async function CategorySlice({ searchParams }) {
+  let products;
+  try {
+    products = await Product.find({ brand: searchParams.value });
+  } catch (error) {
+    console.error('error singel product', error)
+  }
   return (
     <section className="flex flex-col md:flex-row justify-center flex-wrap gap-10 mt-0">
       {products?.map((pro) => (

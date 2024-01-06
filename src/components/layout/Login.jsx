@@ -1,50 +1,59 @@
+'use client';
 import Link from 'next/link';
-import React from 'react';
-import User from '@/models/User';
-import { redirect } from 'next/navigation';
-import bcrypt from 'bcrypt';
+import React, { useEffect } from 'react';
+import { useContext, useState } from 'react';
+import {ContextStore} from '@/context/contextStore';
+import handelLogin from './HandelLogin';
+import { useRouter } from 'next/navigation';
 function Login() {
-  async function handelLogin(data) {
-    'use server';
-    let email = data.get('email')?.valueOf();
-    let password = data.get('password')?.valueOf();
-    let success = false;
-    try {
-      const user = await User.findOne({ email: email });
-      if (user.email === email) {
-        if (bcrypt.compare(user.password,password)) success = true;
-      }
-      throw user == null;
-    } catch (error) {
-      redirect('/register');
-    } finally {
-      if (success) {
-        redirect('/dashboard');
-      }
-    }
-  }
-
+  const router = useRouter();
+  const{state, dispatch} = useContext(ContextStore);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setErroe] = useState('');
+  const { userConnect } = state;
+  console.log(userConnect);
+  useEffect(() => {
+    setTimeout(() => {
+     setErroe('')
+   },2000)
+},[error])
   return (
     <section className=" flex flex-col items-center mt-10 ">
       <h1 className="">فرم ورود</h1>
-      <form action={handelLogin} className="flex flex-col w-96 gap-4 p-4">
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const res = await handelLogin({ email, password });
+          if (res?.res) {
+            dispatch({ type: 'USERLOGIN', payload: res?.res });
+             router.push('/');
+          } else {
+            setErroe(res?.msgError);
+          }
+        }}
+        className="flex flex-col w-96 gap-4 p-4"
+      >
         <input
           type="email"
           required
           placeholder="ایمیل"
           className="p-4 text-center bg-gray-400 outline-none "
-          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value.toLowerCase())}
         />
         <input
           type="password"
           required
           placeholder="پسورد"
           className="p-4 text-center bg-gray-200 outline-none "
-          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value.toLowerCase())}
         />
         {}
         <button className="bg-primary text-white p-4">ورود</button>
       </form>
+      <p>{error }</p>
       <p>
         ثبت نام نکردید؟{' '}
         <Link href={'/register'} className="text-blue-500">
