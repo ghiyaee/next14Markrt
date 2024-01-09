@@ -14,9 +14,12 @@ function Login() {
   const { userConnect } = state;
   console.log(userConnect);
   useEffect(() => {
-    setTimeout(() => {
+  const time=  setTimeout(() => {
      setErroe('')
-   },2000)
+    }, 2600)
+    return () => {
+      clearTimeout(time)
+    }
 },[error])
   return (
     <section className=" flex flex-col items-center mt-10 ">
@@ -53,7 +56,7 @@ function Login() {
         {}
         <button className="bg-primary text-white p-4">ورود</button>
       </form>
-      <p>{error }</p>
+      <p className={`${error ? 'block':'hidden'} my-5 transform p-2 duration-1000 bg-red-500 text-gray-50`}>{error}</p>
       <p>
         ثبت نام نکردید؟{' '}
         <Link href={'/register'} className="text-blue-500">

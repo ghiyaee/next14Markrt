@@ -8,7 +8,7 @@ async function ListProducts() {
  await dbConnect();
   const products = await Product.find();
   return (
-    <section className="flex  md:flex-row justify-center flex-wrap gap-10 mt-0">
+    <section className="flex  md:flex-row justify-center  flex-wrap gap-48 mt-0">
       {products?.map((pro) => (
         <div
           key={pro.id}
@@ -30,7 +30,7 @@ async function ListProducts() {
             <p>قیمت :{pro.price}</p>
             <p>کیفیت :{pro.description}</p>
             <Link href={`/product/${pro.slug}`}>
-              <button className="bg-primary text-white px-6 py-1 mt-2 rounded-full">
+              <button className="bg-primary text-white px-6 py-1 mt-2 rounded-full w-full ">
                 بیشتر...
               </button>
             </Link>

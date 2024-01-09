@@ -1,8 +1,10 @@
-'use client'
+'use client';
 import { createContext, useReducer } from 'react';
 const ContextStore = createContext();
 const initailState = {
   userConnect: [],
+  cartItem: [],
+  counter:0,
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -12,15 +14,24 @@ const reducer = (state, action) => {
         ...state,
         userConnect: [...state.userConnect, user],
       };
+    case 'ADDITEM':
+      const item = action.payload;
+        return {
+        ...state,
+        cartItem: [...state.cartItem,item],
+      };
+   
   }
 };
 const ContextStorProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initailState);
   return (
     <ContextStore.Provider value={{ state, dispatch }}>
-     {children}
+      {children}
     </ContextStore.Provider>
   );
 };
 
-export  { ContextStore,ContextStorProvider }
+export { ContextStore, ContextStorProvider };
+
+

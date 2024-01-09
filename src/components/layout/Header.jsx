@@ -2,10 +2,16 @@
 import Link from 'next/link';
 import { SlBasket } from 'react-icons/sl';
 import { ContextStore } from '@/context/contextStore';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 function Header() {
   const { state } = useContext(ContextStore);
-  const { userConnect } = state;
+  let [counter, setCounter] = useState(0);
+  const { userConnect, cartItem } = state;
+  useEffect(() => {
+    if (cartItem.length > 0) {
+      setCounter((con) => con + 1);
+    }
+  }, [cartItem]);
   return (
     <header className=" flex justify-between items-center  ">
       <Link href={'/'} className="text-primary font-semibold md:text-xl">
@@ -36,7 +42,7 @@ function Header() {
               className="text-center w-5 h-5 bg-primary 
             rounded-full text-white absolute -top-3 -right-3"
             >
-              0
+              {counter}
             </span>
           </div>
         </Link>
@@ -45,8 +51,8 @@ function Header() {
             href={'/'}
             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
           >
-            <p>{userConnect }</p>
-            </Link>
+            <p>{userConnect}</p>
+          </Link>
         ) : (
           <Link
             href={'/login'}
