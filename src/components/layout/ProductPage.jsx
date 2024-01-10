@@ -1,16 +1,29 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
 function ProductPage({ product }) {
   const { dispatch, state } = useContext(ContextStore);
+  const { message, cartItem } = state;
   const handelAddProduct = async (product) => {
-    const exist = state.cartItem.some((item) => item._id === product._id);
+    const exist = cartItem.some((item) => item._id === product._id);
     if (!exist) {
-         dispatch({ type: 'ADDITEM', payload: product });
+      dispatch({ type: 'ADDITEM', payload: product });
+      dispatch({ type: 'ADDCOUNTER', payload: 1 });
+      dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
+      // dispatch({ type: 'PRODUCTLOCAL' ,payload:product});
+      // localStorage.setItem('product', JSON.stringify(product));
     }
   };
+  useEffect(() => {
+    const time = setTimeout(() => {
+      dispatch({ type: 'MESSAGEBUY', payload: '' });
+    }, 3000);
+    return () => {
+      clearTimeout(time);
+    };
+  }, [message]);
   return (
     <section
       className="flex flex-col md:flex-row 
@@ -24,7 +37,7 @@ function ProductPage({ product }) {
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]  "
       >
         <Image
-          width={300}
+          width={200}
           height={100}
           alt="mobile"
           src={product?.img}
@@ -43,6 +56,14 @@ function ProductPage({ product }) {
             >
               خرید
             </button>
+            <p
+              className={`${
+                state.message ? 'block' : 'hidden'
+              } transition-all duration-1000 bg-green-500 mt-2 text-white
+             px-6 py-1 rounded-full w-full`}
+            >
+              {state.message}
+            </p>
           </Link>
         </div>
       </div>

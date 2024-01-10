@@ -4,7 +4,9 @@ const ContextStore = createContext();
 const initailState = {
   userConnect: [],
   cartItem: [],
-  counter:0,
+  counter: 0,
+  localData: [],
+  message:''
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -16,11 +18,44 @@ const reducer = (state, action) => {
       };
     case 'ADDITEM':
       const item = action.payload;
-        return {
+      return {
         ...state,
-        cartItem: [...state.cartItem,item],
+        cartItem: [...state.cartItem, item],
       };
-   
+    case 'ADDCOUNTER':
+      const addNumder = action.payload;
+      return {
+        ...state,
+        counter: state.counter + addNumder,
+      };
+    case 'DECCOUNTER':
+      const decNumder = action.payload;
+      return {
+        ...state,
+        counter: state.counter - decNumder,
+      };
+    case 'PRODUCTLOCAL':
+      const local = action.payload;
+      return {
+        ...state,
+        localData: [...state.localData, local],
+      };
+    case 'DELETEPRODUCT':
+      const productItem = action.payload;
+      const product = state.cartItem.filter(
+        (item) => item._id !== productItem._id
+      );
+      return {
+        ...state,
+        cartItem: product,
+      };
+    case 'MESSAGEBUY':
+      const message = action.payload
+      return {
+        ...state,message:message
+      }
+    default:
+      return state;
   }
 };
 const ContextStorProvider = ({ children }) => {
@@ -33,5 +68,3 @@ const ContextStorProvider = ({ children }) => {
 };
 
 export { ContextStore, ContextStorProvider };
-
-

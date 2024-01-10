@@ -3,12 +3,12 @@ import Image from 'next/image';
 const dbConnect = require('@/dbConnect');
 const Product = require('@/models/Products');
 import Link from 'next/link';
-
 async function ListProducts() {
  await dbConnect();
   const products = await Product.find();
   return (
-    <section className="flex  md:flex-row justify-center  flex-wrap gap-48 mt-0">
+    <section className="flex  md:flex-row 
+    justify-center  flex-wrap gap-[50px] mt-0">
       {products?.map((pro) => (
         <div
           key={pro.id}

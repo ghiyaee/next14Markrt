@@ -4,14 +4,24 @@ import { SlBasket } from 'react-icons/sl';
 import { ContextStore } from '@/context/contextStore';
 import { useContext, useEffect, useState } from 'react';
 function Header() {
-  const { state } = useContext(ContextStore);
-  let [counter, setCounter] = useState(0);
-  const { userConnect, cartItem } = state;
-  useEffect(() => {
-    if (cartItem.length > 0) {
-      setCounter((con) => con + 1);
-    }
-  }, [cartItem]);
+  const { state ,dispatch} = useContext(ContextStore);
+  // let [counter, setCounter] = useState(0);
+  const { userConnect, cartItem, localData, counter } = state;
+  // useEffect(() => {
+  //   if (cartItem.length > 0) {
+  //     setCounter((con) => con + 1);
+  //   }
+  // }, [cartItem]);
+ 
+  // useEffect(() => {
+  //    const loadCart = () => {
+  //      const cartData = localStorage.getItem('product');
+  //      if (cartData) {
+  //      dispatch({ type: 'PRODUCTLOCAL', payload:JSON.parse(cartData) });
+  //      }
+  //    };
+  //   loadCart();
+  // }, []);
   return (
     <header className=" flex justify-between items-center  ">
       <Link href={'/'} className="text-primary font-semibold md:text-xl">
@@ -35,7 +45,7 @@ function Header() {
         <Link href={'/'} className="hidden md:block">
           تماس باما
         </Link>
-        <Link href={'/'}>
+        <Link href={'/basket'}>
           <div className="relative">
             <SlBasket className="text-xl" />
             <span
@@ -46,7 +56,7 @@ function Header() {
             </span>
           </div>
         </Link>
-        {userConnect.length > 0 ? (
+        {userConnect?.length > 0 ? (
           <Link
             href={'/'}
             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
