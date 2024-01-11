@@ -18,20 +18,4 @@ async function handelLogin(data) {
 
 export default handelLogin;
 
-//  async function handelLogin(data) {
-//    let password = data.get('password')?.valueOf();
-//    let success = false;
-//    try {
-//      const user = await User.findOne({ email: email });
-//      if (user.email === email) {
-//        if (bcrypt.compare(user.password, password)) success = true;
-//      }
-//      throw user == null;
-//    } catch (error) {
-//      redirect('/register');
-//    } finally {
-//      if (success) {
-//        redirect('/dashboard');
-//      }
-//    }
-//  }
+

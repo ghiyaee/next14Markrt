@@ -67,33 +67,4 @@ function Register() {
 }
 export default Register;
 
-// import User from '@/models/User';
-// import { redirect } from 'next/navigation';
-// import bcrypt from 'bcrypt';
-// const saltRounds = 10;
-//  async function handelRegister(data) {
-//    'use server';
-//    const name = data.get('userName').valueOf();
-//    const email = data.get('email').valueOf();
-//    const password = data.get('password').valueOf();
-//    bcrypt.hash(password, saltRounds, async (err, password) => {
-//      if (err) {
-//        console.log(err);
-//      } else {
-//        try {
-//          const checkEmail = await User.findOne({ email: email });
-//          if (!checkEmail) {
-//            const newUser = new User({ name, email, password: password });
-//            await newUser.save();
-//          } else {
-//            console.log('exits email');
-//            return {
-//              error: 'EMAIL_EXISTS',
-//            };
-//          }
-//        } catch (error) {
-//          console.error('error', error);
-//        }
-//      }
-//    });
-//  }
+

@@ -13,7 +13,6 @@ function BasketPage() {
 
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
-    // dispatch({ type: 'DECCOUNTER', payload: 1 });
   };
   const handelCounterAdd = (product) => {
     dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
@@ -61,7 +60,7 @@ function BasketPage() {
                     <Link href={``}>
                       <button
                         className="bg-primary text-white px-2  py-1 rounded-full"
-                        onClick={()=>handelCounterDes(pro)}
+                        onClick={() => handelCounterDes(pro)}
                       >
                         <GrFormSubtract />
                       </button>
@@ -84,7 +83,7 @@ function BasketPage() {
                text-gray-50"
             >
               <div>جمع فاکتور</div>
-              <div>0</div>
+              <div>{cartItem.reduce((a, b) => a + b.quantity * b.price,0)}</div>
             </div>
           </>
         )}

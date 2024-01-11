@@ -8,7 +8,7 @@ const link = [
 ];
 function Category() {
   return (
-    <div className="container m-auto flex flex-col gap-[60px] items-center mt-0">
+    <div className="container m-auto flex flex-col gap-[40px] items-center mt-0">
       <h2 className="text-center text-gary-400 text-xl">دسته بندی محصولات</h2>
       <div className="flex flex-wrap  flex-col md:flex-row justify-center gap-[20px] ">
         {link.map((link) => (
@@ -20,15 +20,15 @@ function Category() {
               }}
             >
               <button
-                className="w-36 h-36  bg-gradient-to-tr
-               from-yellow-300 to-transparent rounded-full flex-col
+                className="w-28 h-28  bg-gradient-to-tr
+               from-yellow-400 to-transparent rounded-full flex-col
                     flex items-center justify-center text-black text-2xl
                       cursor-pointer relative shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]"
               >
                 <p className="text-center text-lg  "> {link.name}</p>
                 <span
-                  className="border-[2px] border-b-primary  absolute top-0
-               w-36 h-36 rounded-full animate-spin "
+                  className="border-[2px] border-y-primary  absolute top-0
+               w-28 h-28 rounded-full animate-spin "
                 ></span>
               </button>
             </Link>

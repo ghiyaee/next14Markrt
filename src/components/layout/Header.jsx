@@ -6,15 +6,9 @@ import { useContext, useEffect, useState } from 'react';
 function Header() {
   const { state, dispatch } = useContext(ContextStore);
   const { userConnect, cartItem } = state;
-  // useEffect(() => {
-  //    const loadCart = () => {
-  //      const cartData = localStorage.getItem('product');
-  //      if (cartData) {
-  //      dispatch({ type: 'PRODUCTLOCAL', payload:JSON.parse(cartData) });
-  //      }
-  //    };
-  //   loadCart();
-  // }, []);
+  const handelLogOut = () => {
+    dispatch({ type: 'USERLOGOUT', payload: [] });
+  };
   return (
     <header className=" flex justify-between items-center  ">
       <Link href={'/'} className="text-primary font-semibold md:text-xl">
@@ -55,6 +49,7 @@ function Header() {
           <Link
             href={'/'}
             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
+            onClick={handelLogOut}
           >
             <p>{userConnect}</p>
           </Link>

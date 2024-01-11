@@ -15,6 +15,12 @@ const reducer = (state, action) => {
         ...state,
         userConnect: [...state.userConnect, user],
       };
+    case 'USERLOGOUT':
+      const userLogOut = action.payload;
+      return {
+        ...state,
+        userConnect:[...state.userConnect,userLogOut]
+      }
     case 'ADDITEM':
       const item = action.payload;
       return {
