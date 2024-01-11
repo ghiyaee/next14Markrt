@@ -10,10 +10,11 @@ function ProductPage({ product }) {
     const exist = cartItem.some((item) => item._id === product._id);
     if (!exist) {
       dispatch({ type: 'ADDITEM', payload: product });
-      dispatch({ type: 'ADDCOUNTER', payload: 1 });
+     
       dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
-      // dispatch({ type: 'PRODUCTLOCAL' ,payload:product});
-      // localStorage.setItem('product', JSON.stringify(product));
+   
+    } else {
+       dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
     }
   };
   useEffect(() => {
@@ -26,9 +27,17 @@ function ProductPage({ product }) {
   }, [message]);
   return (
     <section
-      className="flex flex-col md:flex-row 
-    justify-center items-center flex-wrap gap-10 mt-8 "
+      className="flex flex-col 
+    justify-center items-center flex-wrap gap-10 mt-8 transition-all duration-[2000s]"
     >
+      <p
+        className={`${
+          state.message ? 'block' : 'hidden'
+        }  transition-all duration-1000 bg-green-500 mt-2 text-white
+             px-6 py-1 rounded-full `}
+      >
+        {state.message}
+      </p>
       <div
         className="w-[300px] md:w-[700px] flex 
           flex-col md:flex-row justify-center 
@@ -56,14 +65,6 @@ function ProductPage({ product }) {
             >
               خرید
             </button>
-            <p
-              className={`${
-                state.message ? 'block' : 'hidden'
-              } transition-all duration-1000 bg-green-500 mt-2 text-white
-             px-6 py-1 rounded-full w-full`}
-            >
-              {state.message}
-            </p>
           </Link>
         </div>
       </div>

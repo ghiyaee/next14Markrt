@@ -4,15 +4,8 @@ import { SlBasket } from 'react-icons/sl';
 import { ContextStore } from '@/context/contextStore';
 import { useContext, useEffect, useState } from 'react';
 function Header() {
-  const { state ,dispatch} = useContext(ContextStore);
-  // let [counter, setCounter] = useState(0);
-  const { userConnect, cartItem, localData, counter } = state;
-  // useEffect(() => {
-  //   if (cartItem.length > 0) {
-  //     setCounter((con) => con + 1);
-  //   }
-  // }, [cartItem]);
- 
+  const { state, dispatch } = useContext(ContextStore);
+  const { userConnect, cartItem } = state;
   // useEffect(() => {
   //    const loadCart = () => {
   //      const cartData = localStorage.getItem('product');
@@ -49,10 +42,12 @@ function Header() {
           <div className="relative">
             <SlBasket className="text-xl" />
             <span
-              className="text-center w-5 h-5 bg-primary 
-            rounded-full text-white absolute -top-3 -right-3"
+              className={`${
+                cartItem.length > 0 ? 'block' : 'hidden'
+              } text-center w-5 h-5 bg-primary 
+            rounded-full text-white absolute -top-3 -right-3`}
             >
-              {counter}
+              {cartItem.reduce((a, b) => a + b.quantity, 0)}
             </span>
           </div>
         </Link>

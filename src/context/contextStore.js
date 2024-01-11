@@ -4,9 +4,8 @@ const ContextStore = createContext();
 const initailState = {
   userConnect: [],
   cartItem: [],
-  counter: 0,
   localData: [],
-  message:''
+  message: '',
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,20 +19,43 @@ const reducer = (state, action) => {
       const item = action.payload;
       return {
         ...state,
-        cartItem: [...state.cartItem, item],
+        cartItem: [...state.cartItem, { ...item, quantity: 1 }],
       };
-    case 'ADDCOUNTER':
-      const addNumder = action.payload;
-      return {
-        ...state,
-        counter: state.counter + addNumder,
-      };
-    case 'DECCOUNTER':
-      const decNumder = action.payload;
-      return {
-        ...state,
-        counter: state.counter - decNumder,
-      };
+    case 'INCREMENT_QUANTITY':
+      const productAdd = action.payload;
+      const result = state.cartItem.find((p) => p._id === productAdd._id);
+      if (result) {
+        return {
+          ...state,
+          cartItem: [
+            ...state.cartItem.map((item) =>
+              item._id === productAdd._id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          ],
+        };
+      }
+    case 'DECRIMENT_QUANTITY':
+      const product = action.payload;
+      const results = state.cartItem.find((p) => p._id === product._id);
+      if (results) {
+        return {
+          ...state,
+          cartItem: [
+            ...state.cartItem.map((item) =>
+              item._id === product._id
+                ? {
+                    ...item,
+                    quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+                  }
+                : item
+            ),
+          ],
+        };
+      }
+
+   
     case 'PRODUCTLOCAL':
       const local = action.payload;
       return {
@@ -42,18 +64,19 @@ const reducer = (state, action) => {
       };
     case 'DELETEPRODUCT':
       const productItem = action.payload;
-      const product = state.cartItem.filter(
+      const products = state.cartItem.filter(
         (item) => item._id !== productItem._id
       );
       return {
         ...state,
-        cartItem: product,
+        cartItem: products,
       };
     case 'MESSAGEBUY':
-      const message = action.payload
+      const message = action.payload;
       return {
-        ...state,message:message
-      }
+        ...state,
+        message: message,
+      };
     default:
       return state;
   }
