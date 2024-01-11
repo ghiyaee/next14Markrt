@@ -6,12 +6,20 @@ import Link from 'next/link';
 import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
+import product from '../product/[id]/page';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
   const { cartItem, counter, localData } = state;
+
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
-    dispatch({ type: 'DECCOUNTER', payload: 1 });
+    // dispatch({ type: 'DECCOUNTER', payload: 1 });
+  };
+  const handelCounterAdd = (product) => {
+    dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+  };
+  const handelCounterDes = (product) => {
+    dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
   return (
     <section>
@@ -42,13 +50,19 @@ function BasketPage() {
                       <p>قیمت :{pro.price}</p>
                     </div>
                     <Link href={``}>
-                      <button className="bg-primary text-white  px-2  py-1 rounded-full">
+                      <button
+                        className="bg-primary text-white  px-2  py-1 rounded-full"
+                        onClick={() => handelCounterAdd(pro)}
+                      >
                         <IoMdAdd />
                       </button>
                     </Link>
-                    <p>{counter}</p>
+                    <p>{pro.quantity}</p>
                     <Link href={``}>
-                      <button className="bg-primary text-white px-2  py-1 rounded-full">
+                      <button
+                        className="bg-primary text-white px-2  py-1 rounded-full"
+                        onClick={()=>handelCounterDes(pro)}
+                      >
                         <GrFormSubtract />
                       </button>
                     </Link>
