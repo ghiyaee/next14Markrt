@@ -12,7 +12,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setErroe] = useState('');
   const { userConnect } = state;
-  console.log(userConnect);
   useEffect(() => {
   const time=  setTimeout(() => {
      setErroe('')
@@ -56,7 +55,10 @@ function Login() {
         {}
         <button className="bg-primary text-white p-4">ورود</button>
       </form>
-      <p className={`${error ? 'block':'hidden'} my-5 transform p-2 duration-1000 bg-red-500 text-gray-50`}>{error}</p>
+      <p className={`${error ? 'block' : 'hidden'} my-5 transform p-2
+       duration-1000 bg-red-500 text-gray-50`}>
+        {error}
+      </p>
       <p>
         ثبت نام نکردید؟{' '}
         <Link href={'/register'} className="text-blue-500">

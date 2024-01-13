@@ -6,21 +6,25 @@ const initailState = {
   cartItem: [],
   localData: [],
   message: '',
+  comment: [],
 };
 const reducer = (state, action) => {
   switch (action.type) {
     case 'USERLOGIN':
       const user = action.payload;
-      return {
-        ...state,
-        userConnect: [...state.userConnect, user],
-      };
+      const login =state.userConnect.find((f) => f._id === user._id);
+      if (!login) {
+        return {
+          ...state,
+          userConnect: [...state.userConnect, user],
+        };
+      }
     case 'USERLOGOUT':
       const userLogOut = action.payload;
       return {
         ...state,
-        userConnect:[...state.userConnect,userLogOut]
-      }
+        userConnect: [...state.userConnect, userLogOut],
+      };
     case 'ADDITEM':
       const item = action.payload;
       return {
@@ -59,7 +63,7 @@ const reducer = (state, action) => {
             ),
           ],
         };
-      } 
+      }
     case 'PRODUCTLOCAL':
       const local = action.payload;
       return {
@@ -74,6 +78,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         cartItem: products,
+      };
+    case 'COMMENT':
+      const text = action.payload;
+      return {
+        ...state,
+        comment: [...state.comment, text],
       };
     case 'MESSAGEBUY':
       const message = action.payload;

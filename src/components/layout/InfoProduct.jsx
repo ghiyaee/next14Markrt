@@ -1,7 +1,14 @@
-import { useState } from 'react';
-function InfoProduct() {
+import { useState, useContext } from 'react';
+import { ContextStore } from '@/context/contextStore';
+import Comment from '@/models/Comments';
+import { useRouter } from 'next/navigation';
+function InfoProduct({ product }) {
+  const router = useRouter();
+  const { state, dispatch } = useContext(ContextStore);
+  const { comment, userConnect } = state;
   const [showTab, setShowTab] = useState();
   const [hiddenTab, setHiddenTab] = useState('hidden');
+  const [text, setText] = useState('');
   const handelTabInf = () => {
     setHiddenTab('hidden');
     setShowTab('block');
@@ -10,6 +17,8 @@ function InfoProduct() {
     setHiddenTab('block');
     setShowTab('hidden');
   };
+  const handelComment = async (e) => {};
+ 
   return (
     <section
       className="border border-zinc-400 
@@ -50,16 +59,18 @@ function InfoProduct() {
       <div
         className={`${hiddenTab} px-[2rem] py-[1rem] border border-zinc-200 `}
       >
-        <form action="" className="p-2 flex flex-col gap-2">
+        <form action={handelComment} className="p-2 flex flex-col gap-2">
           <textarea
             className="p-2 bg-inherit border border-gray-400 outline-none"
             cols={60}
             rows={10}
             placeholder="نظرخودرا بنویسید"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
           />
           <button
             className="bg-primary text-white py-2 rounded-lg text-xl w-[110px]"
-            onClick={''}
+            onClick={handelComment}
           >
             ارسال نظر
           </button>

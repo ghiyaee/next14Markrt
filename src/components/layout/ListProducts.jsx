@@ -1,17 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
-import data from '../../../data'
+import data from '../../../data';
 const dbConnect = require('@/dbConnect');
 const Product = require('@/models/Products');
 import Link from 'next/link';
+import Comment from '@/models/Comments';
+
 async function ListProducts() {
   await dbConnect();
   // await Product.deleteMany({})
   // await Product.insertMany(data.products)
+  await Comment.deleteMany({});
   const products = await Product.find();
   return (
-    <section className="flex  md:flex-row 
-    justify-center  flex-wrap gap-[50px] mt-0">
+    <section
+      className="flex  md:flex-row 
+    justify-center  flex-wrap gap-[50px] mt-0"
+    >
       {products?.map((pro) => (
         <div
           key={pro.id}
