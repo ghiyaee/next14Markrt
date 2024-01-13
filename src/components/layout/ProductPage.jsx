@@ -3,10 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
+import InfoProduct from './InfoProduct';
 function ProductPage({ product }) {
   const [active, setActive] = useState(product?.img[0]);
-  const [showTab, setShowTab] = useState()
-  const [hiddenTab, setHiddenTab] = useState('hidden');
   const { dispatch, state } = useContext(ContextStore);
   const { message, cartItem } = state;
   const handelAddProduct = async (product) => {
@@ -18,20 +17,6 @@ function ProductPage({ product }) {
       dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
     }
   };
-  const handelTabInf=() => {
-    setHiddenTab('hidden');
-    setShowTab('block');
-  }
-  const handelTabMsg = () => {
-    setHiddenTab('block')
-    setShowTab('hidden')
-  };
-  // const handelTabMsg = () => {
-  //   const hiddenTab = 'hidden';
-  //   const showTab = 'block';
-  //   setHiddenTab(showTab);
-  //   setShowTab(hiddenTab);
-  // };
   useEffect(() => {
     const time = setTimeout(() => {
       dispatch({ type: 'MESSAGEBUY', payload: '' });
@@ -89,43 +74,15 @@ function ProductPage({ product }) {
         </div>
       </section>
       <section>
-        <div className="flex justify-center gap-1 items-center ">
+        <div className="flex justify-center gap-1 items-center  ">
           {product.img.map((img, idx) => (
-          
-              <button onClick={() => setActive(product?.img[idx])} key={img} >
-                <Image src={img} alt="imag"  width={70} height={100} />
-              </button>
-         
+            <button onClick={() => setActive(product?.img[idx])} key={img}>
+              <Image src={img} alt="imag" width={70} height={100} />
+            </button>
           ))}
         </div>
       </section>
-      <section className="border border-zinc-200 ">
-        <button
-          className="px-6 py-6 hover:bg-primary 
-        duration-700 hover:text-gray-50"
-          onClick={handelTabInf}
-        >
-          مشخصات فنی
-        </button>
-        <button
-          className={`$ px-6 py-6 hover:bg-primary 
-        duration-700 hover:text-gray-50`}
-          onClick={handelTabMsg}
-        >
-          نظرات دیگران
-        </button>
-        <div
-          className={`${showTab}  px-[2rem] py-[1rem] border border-zinc-200 `}
-        >
-          <h3 className="mt-5">ظرفیت 128 ,512 گیگ</h3>
-          <p className="mt-5">دوربین 50 مگابیکسلی</p>
-          <p className="mt-5">در سه رنگ مشکی سفید آبی</p>
-        </div>
-        <div className={`${hiddenTab} `}>
-          <h3>نظرات کاربران</h3>
-          <textarea />
-        </div>
-      </section>
+      <InfoProduct />
     </>
   );
 }

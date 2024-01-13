@@ -23,7 +23,7 @@ async function hadelProduct({ searchParams }) {
                 width={144}
                 height={100}
                 alt="mobile"
-                src={pro.img}
+                src={pro.img[0]}
                 priority={true}
               />
               <div className="text-gray-500">

@@ -21,7 +21,7 @@ async function CategorySlice({ searchParams }) {
             width={100}
             height={100}
             alt="mobile"
-            src={pro.img}
+            src={pro.img[0]}
             priority={false}
           />
           <div className="text-gray-500">
