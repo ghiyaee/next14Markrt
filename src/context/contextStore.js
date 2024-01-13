@@ -59,9 +59,7 @@ const reducer = (state, action) => {
             ),
           ],
         };
-      }
-
-   
+      } 
     case 'PRODUCTLOCAL':
       const local = action.payload;
       return {

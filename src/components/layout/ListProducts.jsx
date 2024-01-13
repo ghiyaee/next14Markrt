@@ -1,10 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
+import data from '../../../data'
 const dbConnect = require('@/dbConnect');
 const Product = require('@/models/Products');
 import Link from 'next/link';
 async function ListProducts() {
- await dbConnect();
+  await dbConnect();
+  // await Product.deleteMany({})
+  // await Product.insertMany(data.products)
   const products = await Product.find();
   return (
     <section className="flex  md:flex-row 
@@ -20,7 +23,7 @@ async function ListProducts() {
             width={100}
             height={100}
             alt="mobile"
-            src={pro.img}
+            src={pro.img[0]}
             priority={false}
             className="flex-auto"
           />

@@ -40,7 +40,7 @@ function BasketPage() {
                     width={40}
                     height={40}
                     alt="mobile"
-                    src={pro.img}
+                    src={pro.img[0]}
                     priority={true}
                   />
                   <div className="text-gray-500 flex items-center gap-1 md:gap-4 ">

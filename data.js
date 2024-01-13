@@ -26,7 +26,13 @@ const data = {
       name: 'apple15',
       slug: 'apple15',
       model: 2023,
-      img: '/img/app15.png',
+      img: [
+        '/img/app15.png',
+        '/img/apple15-1.jpg',
+        '/img/apple15-2.jpg',
+        '/img/apple15-3.jpg',
+        '/img/apple15-4.jpg',
+      ],
       price: 5000,
       countInStock: 10,
       brand: 'apple',
@@ -124,7 +130,7 @@ const data = {
       rating: 4.5,
       numReviews: 5,
       description: 'hight quality',
-      capacity: [128,'-', 256],
+      capacity: [128, '-', 256],
     },
   ],
 };
