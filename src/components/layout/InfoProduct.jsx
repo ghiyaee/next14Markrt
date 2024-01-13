@@ -11,16 +11,26 @@ function InfoProduct() {
     setShowTab('hidden');
   };
   return (
-    <section className="border border-zinc-400 shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]">
+    <section
+      className="border border-zinc-400 
+      shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]"
+    >
       <button
-        className="px-6 py-4 hover:bg-primary 
-        duration-700 hover:text-gray-50 border-l"
+        className={`${
+          showTab === 'hidden'
+            ? 'bg-inherit text-black'
+            : 'bg-primary text-gray-50 '
+        }  px-6 py-4 hover:bg-primary 
+        duration-700 hover:text-gray-50
+        border-l-2 border-white`}
         onClick={handelTabInf}
       >
         مشخصات فنی
       </button>
       <button
-        className={`$ px-6 py-4 hover:bg-primary 
+        className={`${
+          hiddenTab === 'block' ? 'bg-primary text-gray-50 ' : ''
+        }   px-6 py-4 hover:bg-primary 
         duration-700 hover:text-gray-50`}
         onClick={handelTabMsg}
       >
@@ -46,7 +56,6 @@ function InfoProduct() {
             cols={60}
             rows={10}
             placeholder="نظرخودرا بنویسید"
-            
           />
           <button
             className="bg-primary text-white py-2 rounded-lg text-xl w-[110px]"
