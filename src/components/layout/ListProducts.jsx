@@ -2,15 +2,15 @@ import React from 'react';
 import Image from 'next/image';
 import data from '../../../data';
 const dbConnect = require('@/dbConnect');
-const Product = require('@/models/Products');
+const Product = require('@/models/products').default;
 import Link from 'next/link';
-import Comment from '@/models/Comments';
-
+import Comment from '@/models/comments';
+import { useRouter } from 'next/navigation';
 async function ListProducts() {
   await dbConnect();
   // await Product.deleteMany({})
   // await Product.insertMany(data.products)
-  await Comment.deleteMany({});
+  // await Comment.deleteMany({});
   const products = await Product.find();
   return (
     <section

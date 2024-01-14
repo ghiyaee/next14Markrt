@@ -16,7 +16,7 @@ const reducer = (state, action) => {
       if (!login) {
         return {
           ...state,
-          userConnect: [...state.userConnect, user],
+          userConnect: [...state.userConnect,user],
         };
       }
     case 'USERLOGOUT':

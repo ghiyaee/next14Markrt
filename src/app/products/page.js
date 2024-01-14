@@ -1,5 +1,5 @@
 import SearchBr from '@/components/layout/SearchBr';
-import Product from '@/models/Products';
+import Product from '@/models/products';
 import Image from 'next/image';
 import Link from 'next/link';
 async function productsPage() {

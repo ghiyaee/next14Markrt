@@ -1,4 +1,4 @@
-import Product from '@/models/Products';
+import Product from '@/models/products';
 import ProductPage from '@/components/layout/ProductPage';
 async function product({ params }) {
   const product = await Product.findOne({ slug: params.id });

@@ -51,7 +51,7 @@ function Header() {
             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
             onClick={handelLogOut}
           >
-            <p>{userConnect}</p>
+            <p>{userConnect[0].name}</p>
           </Link>
         ) : (
           <Link

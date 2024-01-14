@@ -1,5 +1,5 @@
 'use server';
-import User from '@/models/User';
+import User from '@/models/user';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 async function handelRegister(data) {
@@ -8,14 +8,14 @@ async function handelRegister(data) {
     const checkEmail = await User.findOne({ email: data.email });
     if (!checkEmail) {
       const newUser = new User({
-        name:data.name,
-        email:data.email,
-        password:password,
+        name: data.name,
+        email: data.email,
+        password: password,
       });
       await newUser.save();
       return {
-        success:'ثبت نام انجام شد'
-      }
+        success: 'ثبت نام انجام شد',
+      };
     } else {
       return {
         error: 'این ایمیل قبلا وارد شده',

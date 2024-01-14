@@ -1,9 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
-import Comment from '@/models/Comments';
 import { useRouter } from 'next/navigation';
+import CommentNew from '@/components/layout/Comment';
 function InfoProduct({ product }) {
   const router = useRouter();
+  const [success,setSucces]=useState('')
   const { state, dispatch } = useContext(ContextStore);
   const { comment, userConnect } = state;
   const [showTab, setShowTab] = useState();
@@ -17,8 +18,14 @@ function InfoProduct({ product }) {
     setHiddenTab('block');
     setShowTab('hidden');
   };
-  const handelComment = async (e) => {};
- 
+  useEffect(() => {
+    const time = setTimeout(() => {
+    setSucces('')
+    }, 2800)
+    return () => {
+      clearTimeout(time)
+    }
+},[success])
   return (
     <section
       className="border border-zinc-400 
@@ -59,7 +66,19 @@ function InfoProduct({ product }) {
       <div
         className={`${hiddenTab} px-[2rem] py-[1rem] border border-zinc-200 `}
       >
-        <form action={handelComment} className="p-2 flex flex-col gap-2">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            if (userConnect.length > 0) {
+              const comment = await CommentNew({ userConnect, text, product });
+              setSucces(comment.success);
+              setText('');
+            } else {
+              router.push('/login');
+            }
+          }}
+          className="p-2 flex flex-col gap-2"
+        >
           <textarea
             className="p-2 bg-inherit border border-gray-400 outline-none"
             cols={60}
@@ -68,12 +87,14 @@ function InfoProduct({ product }) {
             onChange={(e) => setText(e.target.value)}
             value={text}
           />
-          <button
-            className="bg-primary text-white py-2 rounded-lg text-xl w-[110px]"
-            onClick={handelComment}
-          >
-            ارسال نظر
-          </button>
+          <div className="flex items-center gap-4">
+            <button className="bg-primary text-white py-2 rounded-lg text-xl w-[110px]">
+              ارسال نظر
+            </button>
+            <p className="bg-green-500 text-white py-2 rounded-lg text-xl">
+              {success}
+            </p>
+          </div>
         </form>
       </div>
     </section>

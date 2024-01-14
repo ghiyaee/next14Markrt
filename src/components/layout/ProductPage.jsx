@@ -82,7 +82,7 @@ function ProductPage({ product }) {
           ))}
         </div>
       </section>
-      <InfoProduct product={product._id} />
+      <InfoProduct product={product} />
     </>
   );
 }

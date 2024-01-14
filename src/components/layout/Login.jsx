@@ -2,24 +2,24 @@
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
-import {ContextStore} from '@/context/contextStore';
+import { ContextStore } from '@/context/contextStore';
 import handelLogin from './HandelLogin';
 import { useRouter } from 'next/navigation';
 function Login() {
   const router = useRouter();
-  const{state, dispatch} = useContext(ContextStore);
+  const { state, dispatch } = useContext(ContextStore);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setErroe] = useState('');
   const { userConnect } = state;
   useEffect(() => {
-  const time=  setTimeout(() => {
-     setErroe('')
-    }, 2600)
+    const time = setTimeout(() => {
+      setErroe('');
+    }, 2600);
     return () => {
-      clearTimeout(time)
-    }
-},[error])
+      clearTimeout(time);
+    };
+  }, [error]);
   return (
     <section className=" flex flex-col items-center mt-10 ">
       <h1 className="">فرم ورود</h1>
@@ -27,9 +27,9 @@ function Login() {
         onSubmit={async (e) => {
           e.preventDefault();
           const res = await handelLogin({ email, password });
-          if (res?.res) {
-            dispatch({ type: 'USERLOGIN', payload: res?.res });
-             router.push('/');
+          if (res) {
+            dispatch({ type: 'USERLOGIN', payload: res.res });
+            router.push('/');
           } else {
             setErroe(res?.msgError);
           }
@@ -55,8 +55,10 @@ function Login() {
         {}
         <button className="bg-primary text-white p-4">ورود</button>
       </form>
-      <p className={`${error ? 'block' : 'hidden'} my-5 transform p-2
-       duration-1000 bg-red-500 text-gray-50`}>
+      <p
+        className={`${error ? 'block' : 'hidden'} my-5 transform p-2
+       duration-1000 bg-red-500 text-gray-50`}
+      >
         {error}
       </p>
       <p>
