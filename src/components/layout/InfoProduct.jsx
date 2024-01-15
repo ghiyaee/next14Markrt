@@ -2,14 +2,17 @@ import { useState, useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import { useRouter } from 'next/navigation';
 import CommentNew from '@/components/layout/Comment';
+import AllComment from './AllComment';
+// import moment from 'jalali-moment';
 function InfoProduct({ product }) {
   const router = useRouter();
-  const [success,setSucces]=useState('')
+  const [success, setSucces] = useState('');
   const { state, dispatch } = useContext(ContextStore);
   const { comment, userConnect } = state;
   const [showTab, setShowTab] = useState();
   const [hiddenTab, setHiddenTab] = useState('hidden');
   const [text, setText] = useState('');
+  const [showComment, setShowComment] = useState([]);
   const handelTabInf = () => {
     setHiddenTab('hidden');
     setShowTab('block');
@@ -20,12 +23,22 @@ function InfoProduct({ product }) {
   };
   useEffect(() => {
     const time = setTimeout(() => {
-    setSucces('')
-    }, 2800)
+      setSucces('');
+    }, 2800);
     return () => {
-      clearTimeout(time)
-    }
-},[success])
+      clearTimeout(time);
+    };
+  }, [success]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const comment = await AllComment(product);
+      if (comment.comment.show_comment) {
+        setShowComment(comment.comment);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(showComment);
   return (
     <section
       className="border border-zinc-400 
@@ -96,6 +109,29 @@ function InfoProduct({ product }) {
             </p>
           </div>
         </form>
+        {showComment?.length === 0 ? (
+          <div className="text-xl mt-4">هیچ دیدگاهی ثبت نشده</div>
+        ) : (
+          <div className="flex flex-col gap-5 mt-5">
+            <h2 className="text-xl ">دیدگاه کاربران</h2>
+            {showComment?.map((comment, ind) => (
+              <div
+                className="border p-4 text-xl flex flex-col gap-5 rounded-xl"
+                key={ind}
+              >
+                <p className="text-red-500">
+                  کاربر :
+                  <span className="text-blue-500">{comment.user_id.name}</span>
+                </p>
+                <p className="text-justify">{comment.text}</p>
+                <div className="flex flex-wrap justify-between items-center">
+                  {/* {moment(comment.date).locale('fa').format('HH:D YYYY/MM/DD')} */}
+                
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

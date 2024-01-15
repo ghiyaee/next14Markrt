@@ -1,9 +1,9 @@
 import React from 'react'
 
-function DashboardPage() {
+function DashboardPageAdmin() {
   return (
     <div> DashboardPage</div>
   )
 }
 
-export default DashboardPage
+export default DashboardPageAdmin

@@ -19,7 +19,7 @@ async function productsPage() {
               width={100}
               height={100}
               alt="mobile"
-              src={pro.img}
+              src={pro.img[0]}
               priority={true}
             />
             <div className="text-gray-500">
