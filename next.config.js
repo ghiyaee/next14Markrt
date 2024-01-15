@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  
-}
-module.exports = nextConfig
+ 
+};
+module.exports = nextConfig;
 module.exports = {
   version: 2,
   builds: [{ src: './page.js', use: '@vercel/node' }],
@@ -10,8 +10,8 @@ module.exports = {
 };
 module.exports = {
   experimental: {
-     serverComponentsExternalPackages: ['mongoose'],
-    },
+    serverComponentsExternalPackages: ['mongoose'],
+  },
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;

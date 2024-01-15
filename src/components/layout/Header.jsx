@@ -45,9 +45,10 @@ function Header() {
             </span>
           </div>
         </Link>
-        {userConnect?.length > 0 ? (
+        {userConnect?.length > 0 && userConnect[0].isAdmin ? (
+        
           <Link
-            href={'/'}
+            href={'/dashboardAdmin'}
             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
             onClick={handelLogOut}
           >

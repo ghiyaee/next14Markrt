@@ -10,7 +10,7 @@ function Category() {
   return (
     <div className="container m-auto flex flex-col gap-[40px] items-center mt-0">
       <h2 className="text-center text-gary-400 text-xl">دسته بندی محصولات</h2>
-      <div className="flex flex-wrap  flex-col md:flex-row justify-center gap-[20px] ">
+      <div className="flex flex-wrap  flex-col md:flex-row justify-center gap-[10px] ">
         {link.map((link) => (
           <div key={link.name} className=" ">
             <Link

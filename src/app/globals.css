@@ -18,3 +18,7 @@ img {
   height: auto;
   width: auto; 
 }
+.style-button{
+@apply bg-primary text-gray-50 p-2 duration-500 rounded-xl
+
+}
