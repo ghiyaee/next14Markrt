@@ -8,7 +8,7 @@ function Header() {
   const { state, dispatch } = useContext(ContextStore);
   const { userConnect, cartItem } = state;
   const handelLogOut = () => {
-    dispatch({ type: 'USERLOGOUT', payload:[]});
+    dispatch({ type: 'USERLOGOUT', payload: [] });
   };
   return (
     <header className=" flex justify-between items-center  ">
@@ -57,11 +57,7 @@ function Header() {
                 >
                   <p>{userConnect[0].name}</p>
                 </Link>
-                <Link
-                
-                  href={'/'}
-                  onClick={handelLogOut}
-                >
+                <Link href={'/'} onClick={handelLogOut}>
                   خروج
                 </Link>
               </>
@@ -73,7 +69,9 @@ function Header() {
                 >
                   <p>{userConnect[0].name}</p>
                 </Link>
-                <Link href={'/logOut'}>خروج</Link>
+                <Link href={'/'} onClick={handelLogOut}>
+                  خروج
+                </Link>
               </>
             )}
           </>

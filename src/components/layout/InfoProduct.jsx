@@ -31,14 +31,14 @@ function InfoProduct({ product }) {
   }, [success]);
   useEffect(() => {
     const fetchData = async () => {
-      const comment = await AllComment(product);
-      if (comment.comment.show_comment) {
-        setShowComment(comment.comment);
+      const { comment: comment } = await AllComment(product);
+      console.log(comment);
+      if (comment) {
+        setShowComment(comment);
       }
     };
     fetchData();
   }, []);
-  console.log(showComment);
   return (
     <section
       className="border border-zinc-400 
@@ -119,15 +119,21 @@ function InfoProduct({ product }) {
                 className="border p-4 text-xl flex flex-col gap-5 rounded-xl"
                 key={ind}
               >
-                <p className="text-red-500">
-                  کاربر :
-                  <span className="text-blue-500">{comment.user_id.name}</span>
-                </p>
-                <p className="text-justify">{comment.text}</p>
-                <div className="flex flex-wrap justify-between items-center">
-                  {/* {moment(comment.date).locale('fa').format('HH:D YYYY/MM/DD')} */}
-                
-                </div>
+                {comment.show_comment ? (
+                  <>
+                    <p> کاربر :
+                      <span className="text-blue-500">
+                        {comment.user_id.name}
+                      </span>
+                    </p>
+                    <p className="text-justify">{comment.text}</p>
+                    <div className="flex flex-wrap justify-between items-center">
+                      {/* {moment(comment.date).locale('fa').format('HH:D YYYY/MM/DD')} */}
+                    </div>
+                  </>
+                ) : (
+                  ''
+                )}
               </div>
             ))}
           </div>
