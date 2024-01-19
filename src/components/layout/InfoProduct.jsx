@@ -31,7 +31,7 @@ function InfoProduct({ product }) {
   }, [success]);
   useEffect(() => {
     const fetchData = async () => {
-      const { comment: comment } = await AllComment(product);
+      const { comment } = await AllComment(product);
       console.log(comment);
       if (comment) {
         setShowComment(comment);

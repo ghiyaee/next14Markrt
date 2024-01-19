@@ -13,12 +13,27 @@ const handelMsg = async (id) => {
     await Comment.findOneAndUpdate(
       { _id: id },
       { show_comment: true }
-      );
-      return { res: 'تاییدشد' };
+    );
+      const newComment = await Comment.find().populate([
+        'user_id',
+        'product_id',
+      ]);
+      return { res: JSON.parse(JSON.stringify(newComment)) };
   } catch (error) {
     console.log(error);
   }
 };
 
+const handelDeleteComment = async (id) => {
+  try {
+    const comment = await Comment.findOneAndDelete({ _id: id });
+    const newComment = await Comment.find().populate(['user_id', 'product_id']);
+    return { newComment: JSON.parse(JSON.stringify(newComment)) };
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
 
-export { handelMsg, handelAllComment };
+
+export { handelMsg, handelAllComment ,handelDeleteComment};
