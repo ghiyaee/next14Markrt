@@ -5,8 +5,8 @@ import {
   handelAllComment,
   handelDeleteComment,
 } from '@/components/layout/ShowComment';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import moment from 'jalali-moment';
 function CommentsPage() {
   const [resulte, setResulte] = useState([]);
   const [confirmation, setConfirmation] = useState('');
@@ -36,7 +36,10 @@ function CommentsPage() {
                 key={c._id}
                 className="flex flex-col gap-5 p-4 border border-blue-600 rounded-lg w-[98%] m-2"
               >
-                <p>{c.user_id.name}</p>
+                <div className=' flex gap-4 flex-wrap'>
+                  {moment(c.date).locale('fa').format('HH:D YYYY/MM/DD')}
+                  <p> نام کاربر:{c.user_id.name}</p>
+                </div>
                 <p>{c.text}</p>
                 <div>
                   <button
@@ -70,7 +73,4 @@ function CommentsPage() {
     </main>
   );
 }
-
 export default CommentsPage;
-
-//c.show_comment ? 'تاییدشد' : 'منتظرتایید'

@@ -36,7 +36,7 @@ function BasketPage() {
                     key={pro._id}
                     className="flex justify-center  gap-2 p-2
                      hover:scale-105 duration-700 rounded-lg 
-                    shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] my-2 "
+                    shadow-[0_25px_45px_-24px_rgb(0,0,0,0.7)] my-2 "
                   >
                     <Image
                       width={40}

@@ -29,8 +29,8 @@ function ProductPage({ product }) {
     <>
       <section
         className="flex flex-col 
-    justify-center items-center flex-wrap 
-    gap-10 mt-8 transition-all duration-[2000s]"
+        justify-center items-center flex-wrap 
+       gap-10 mt-8 transition-all duration-[2000s]"
       >
         <p
           className={`${
@@ -42,18 +42,19 @@ function ProductPage({ product }) {
         </p>
         <div
           className="w-[300px] md:w-[700px] flex 
-          flex-col md:flex-row justify-center 
+          flex-col  justify-center 
           items-center gap-10 p-4 
-        hover:scale-105 duration-700 rounded-lg 
-        shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]  "
+          hover:scale-105 duration-700 rounded-lg 
+          shadow-[0_25px_45px_-24px_rgb(0,0,0,0.7)]  "
         >
           <div className="">
             <Image
-              width={250}
-              height={100}
+              width={70}
+              height={70}
               alt="mobile"
               src={active}
               priority={false}
+              layout="responsive"
             />
           </div>
           <div className="text-gray-500 ">
@@ -73,11 +74,17 @@ function ProductPage({ product }) {
           </div>
         </div>
       </section>
-      <section>
-        <div className="flex justify-center gap-1 items-center  ">
+      <section className="flex justify-center">
+        <div className="flex  justify-center gap-1 items-center img ">
           {product.img.map((img, idx) => (
             <button onClick={() => setActive(product?.img[idx])} key={img}>
-              <Image src={img} alt="imag" width={70} height={100} />
+              <Image
+                src={img}
+                alt="imag"
+                width={20}
+                height={20}
+                layout="responsive"
+              />
             </button>
           ))}
         </div>

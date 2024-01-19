@@ -13,10 +13,9 @@
 .styleSahdow {
   box-shadow: 2px 0 2px 2 rgba(0, 0, 0, 0.2);
 }
-img {
-  max-width: 100%;
+.img {
+  width: 50%;
   height: auto;
-  width: auto; 
 }
 .style-button{
 @apply bg-primary text-gray-50 p-1 duration-500 rounded-xl

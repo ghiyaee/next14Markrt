@@ -1,9 +1,10 @@
 import { useState, useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import { useRouter } from 'next/navigation';
-import CommentNew from '@/components/layout/Comment';
-import AllComment from './AllComment';
-// import moment from 'jalali-moment';
+// import CommentNew from '@/components/layout/Comment';
+// import AllComment from './AllComment';
+import moment from 'jalali-moment';
+import { AllComment, CommentNew } from '@/components/layout/ShowComment';
 function InfoProduct({ product }) {
   const router = useRouter();
   const [success, setSucces] = useState('');
@@ -13,6 +14,7 @@ function InfoProduct({ product }) {
   const [hiddenTab, setHiddenTab] = useState('hidden');
   const [text, setText] = useState('');
   const [showComment, setShowComment] = useState([]);
+
   const handelTabInf = () => {
     setHiddenTab('hidden');
     setShowTab('block');
@@ -121,15 +123,19 @@ function InfoProduct({ product }) {
               >
                 {comment.show_comment ? (
                   <>
-                    <p> کاربر :
-                      <span className="text-blue-500">
-                        {comment.user_id.name}
-                      </span>
-                    </p>
-                    <p className="text-justify">{comment.text}</p>
-                    <div className="flex flex-wrap justify-between items-center">
-                      {/* {moment(comment.date).locale('fa').format('HH:D YYYY/MM/DD')} */}
+                    <div className="flex gap-4 flex-wrap">
+                      <p>
+                        کاربر :
+                        <span className="text-blue-500">
+                          {comment.user_id.name}
+                        </span>
+                      </p>
+                      {moment(comment.date)
+                        .locale('fa')
+                        .format('HH:D YYYY/MM/DD')}
                     </div>
+
+                    <p className="text-justify">{comment.text}</p>
                   </>
                 ) : (
                   ''
