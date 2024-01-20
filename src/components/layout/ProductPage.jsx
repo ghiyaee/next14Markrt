@@ -41,7 +41,7 @@ function ProductPage({ product }) {
           {state.message}
         </p>
         <div
-          className="w-[300px] md:w-[700px] h-[500px] flex 
+          className="w-[300px] md:w-[500px] h-[500px] flex 
           flex-col  justify-center 
           items-center gap-10 p-4 
            rounded-lg 
