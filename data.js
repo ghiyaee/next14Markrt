@@ -32,6 +32,7 @@ const data = {
         '/img/apple15-2.jpg',
         '/img/apple15-3.jpg',
         '/img/apple15-4.jpg',
+        '/img/app15-5.jpg',
       ],
       price: 5000,
       countInStock: 10,

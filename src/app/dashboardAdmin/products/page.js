@@ -18,21 +18,26 @@ function ProductsPage() {
     fetachData();
   }, []);
   return (
-    <main className="flex gap-2 container m-auto">
+    <main className="flex gap-0 container m-auto">
       <DashbordAdmin />
       <div
         className="w-screen flex flex-col  items-center
        bg-gradient-to-tr from-yellow-300 to-transparent"
       >
-        <h2 className='py-2'>ویرایش محصولات</h2>
+        <h2 className="py-2">ویرایش محصولات</h2>
         {products.map((pro) => (
           <div
             key={pro._id}
-            className="flex border-2 rounded-lg
-           border-blue-500 w-[60rem] items-center p-2 justify-between m-4"
+            className="flex border-t-2 
+           border-blue-500 w-[60rem] items-center 
+           hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
+           hover:border-x-2
+            p-2 justify-between m-0"
           >
-            <div className="flex items-center gap-8 flex-1">
-              <Image src={pro.img[0]} alt={'image'} width={50} height={50} />
+            <div className="flex items-center gap-6 flex-1">
+              <div className='w-10 h-10'>
+                <Image src={pro.img[0]} alt={'image'} width={50} height={50} />
+              </div>
               <p className="w-44">نام محصول : {pro.name}</p>
               <p className="w-42">قیمت: {pro.price}</p>
               <p>تعداد : {pro.countInStock}</p>

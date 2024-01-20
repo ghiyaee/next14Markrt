@@ -23,15 +23,15 @@ const Hero = ({children}) => {
             کیفیت برتر با بهترین ساختار
           </p>
         </div>
-        <div className="flex  justify-center gap-2 w-36 h-36 md:w-52 md:h-52 relative">
+        <div className=" w-36 h-36 md:w-52 md:h-52 relative">
           <Image
-            width={144}
-            height={144}
+            fill
+            objectFit="contain"
             src={images[index]}
             alt={`Image ${index + 1}`}
             key={images}
             priority={false}
-            className=" transform transition-all duration-[2000s]"
+            className=" transform transition-all duration-[2000s]  "
           />
         </div>
       </section>

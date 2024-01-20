@@ -20,7 +20,7 @@ async function ListProducts() {
       {products?.map((pro) => (
         <div
           key={pro.id}
-          className=" flex flex-col justify-between items-center gap-8 p-12 
+          className=" flex flex-col justify-between items-center gap-5 p-12 
         hover:scale-105 duration-700 rounded-lg 
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
         >
@@ -30,9 +30,8 @@ async function ListProducts() {
             alt="mobile"
             src={pro.img[0]}
             priority={false}
-            className="flex-auto"
           />
-          <div className="text-gray-500 flex-1 ">
+          <div className="text-gray-500  ">
             <p> برند: {pro.name}</p>
             <p>سال ساخت :{pro.model}</p>
             <p>قیمت :{pro.price}</p>

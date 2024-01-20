@@ -41,20 +41,20 @@ function ProductPage({ product }) {
           {state.message}
         </p>
         <div
-          className="w-[300px] md:w-[700px] flex 
+          className="w-[300px] md:w-[700px] h-[500px] flex 
           flex-col  justify-center 
           items-center gap-10 p-4 
-          hover:scale-105 duration-700 rounded-lg 
+           rounded-lg 
           shadow-[0_25px_45px_-24px_rgb(0,0,0,0.7)]  "
         >
-          <div className="">
+          <div className="relative w-[400px] h-[350px]">
             <Image
-              width={70}
-              height={70}
               alt="mobile"
               src={active}
               priority={false}
-              layout="responsive"
+              fill
+              objectFit="contain"
+              className="hover:scale-125 duration-700"
             />
           </div>
           <div className="text-gray-500 ">
@@ -78,13 +78,9 @@ function ProductPage({ product }) {
         <div className="flex  justify-center gap-1 items-center img ">
           {product.img.map((img, idx) => (
             <button onClick={() => setActive(product?.img[idx])} key={img}>
-              <Image
-                src={img}
-                alt="imag"
-                width={20}
-                height={20}
-                layout="responsive"
-              />
+              <div className="relative w-20 h-20 ">
+                <Image src={img} alt="imag" fill objectFit="cover" />
+              </div>
             </button>
           ))}
         </div>
