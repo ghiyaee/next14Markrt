@@ -46,7 +46,6 @@ async function AllComment(product) {
     console.error(error);
   }
 }
-
 async function CommentNew(data) {
   try {
     const comment = new Comment({
