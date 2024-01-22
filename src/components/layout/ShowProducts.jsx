@@ -22,14 +22,14 @@ const handelEditProduct = async (data) => {
   try {
     const product = await Product.findOneAndUpdate(
       { _id: data.id },
-      {$set: {price: data.price, countInStock: data.countInStock} }
+      { $set: { price: data.price, countInStock: data.countInStock } }
     );
     if (!product) {
-      console.log('Document not found');
       return { msg: 'تغییرات اعمال نشد' };
     }
-    console.log(product);
-      return{msg:'تغییرات اعمال شد'}
-  } catch (error) {console.log(error);}
+    return { msg: 'تغییرات اعمال شد' };
+  } catch (error) {
+    console.log(error);
+  }
 };
 export { handelAllProducts, handelProduct, handelEditProduct };
