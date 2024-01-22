@@ -61,9 +61,9 @@ function EditProduct({ searchParams }) {
               router.push('/dashboardAdmin/products');
             }, 2000);
           }}
-          className="flex flex-col gap-2 mt-5 shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)] py-4 px-10  "
+          className="w-[300px] flex flex-col justify-between gap-2 mt-5 shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)] py-4 px-10  "
         >
-          <div className="flex w-36 gap-5 justify-between items-center">
+          <div className="flex w-40 gap-5 justify-between items-center">
             <label>مدل</label>
             <input
               type="text"
@@ -72,7 +72,7 @@ function EditProduct({ searchParams }) {
               className="outline-none rounded-md text-center input"
             />
           </div>
-          <div className="flex w-36 gap-5 justify-between items-center">
+          <div className="flex w-40 gap-5 justify-between items-center">
             <label>قیمت </label>
             <input
               type="text"
@@ -81,7 +81,7 @@ function EditProduct({ searchParams }) {
               className="outline-none rounded-md text-center input"
             />
           </div>
-          <div className="flex w-36 gap-5 justify-between items-center">
+          <div className="flex w-40 gap-5 justify-between items-center">
             <label className="w-10">تعداد </label>
             <input
               type="number"
@@ -90,7 +90,7 @@ function EditProduct({ searchParams }) {
               className="outline-none rounded-md text-center input"
             />
           </div>
-          <div className="flex w-36  gap-5 justify-between items-center">
+          <div className="flex w-40  gap-5 justify-between items-center">
             <label className="h-10">سال ساخت</label>
             <input
               type="text"
