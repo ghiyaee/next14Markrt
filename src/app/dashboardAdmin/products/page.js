@@ -1,6 +1,9 @@
 'use client';
 import DashbordAdmin from '@/components/layout/DashbordAdmin';
-import { handelAllProducts } from '@/components/layout/ShowProducts';
+import {
+  handelAllProducts,
+  hamdelDeleteProduct,
+} from '@/components/layout/ShowProducts';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -35,12 +38,12 @@ function ProductsPage() {
             p-2 justify-between m-0"
           >
             <div className="flex items-center gap-6 flex-1">
-              <div className="w-10 h-10">
+              <div className=" relative w-10 h-10">
                 <Image
                   src={product.img[0]}
                   alt={'image'}
-                  width={50}
-                  height={50}
+                  fill
+                  objectFit='contain'
                 />
               </div>
               <p className="w-44">نام محصول : {product.name}</p>
@@ -57,7 +60,12 @@ function ProductsPage() {
               >
                 ویرایش
               </Link>
-              <button className="px-4 rounded-lg py-1 bg-primary text-gray-50">
+              <button onClick={async (e) => {
+                e.preventDefault()
+                const {products} = await hamdelDeleteProduct(product._id)
+                setProducts(products)
+                
+              }} className="px-4 rounded-lg py-1 bg-primary text-gray-50">
                 حذف
               </button>
             </div>

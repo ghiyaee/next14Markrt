@@ -26,3 +26,7 @@
  border-blue-500  hover:p-2 hover:shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)]
    hover:border-x-2 text-center;
 }
+
+input:--webkit-file-upload-button{
+   placeholder:"انتخاب فایل"
+}

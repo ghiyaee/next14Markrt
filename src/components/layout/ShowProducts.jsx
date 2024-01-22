@@ -40,6 +40,7 @@ const handelEditProduct = async (data) => {
   }
 };
 const handelNewProduct = async (data) => {
+  console.log(data);
   try {
     const product = new Product({
       name: data.name,
@@ -58,12 +59,20 @@ const handelNewProduct = async (data) => {
     }
     return { msg: 'مشکلی در ثبت ایجادشده بررسی کنید' };
   } catch (error) {
-    console.log(error);
+    console.log(error, 'this a error check codes');
   }
+};
+const hamdelDeleteProduct = async (id) => {
+  try {
+    const product = await Product.findByIdAndDelete({ _id: id });
+    const products = await Product.find()
+    return{products:JSON.parse(JSON.stringify(products))}
+  } catch (error) {console.log(error,'this is delete but error');}
 };
 export {
   handelAllProducts,
   handelProduct,
   handelEditProduct,
   handelNewProduct,
+  hamdelDeleteProduct,
 };
