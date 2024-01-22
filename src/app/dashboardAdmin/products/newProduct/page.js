@@ -33,7 +33,7 @@ function NewProduct() {
       >
         <h2 className="p-2">درج محصول جدید</h2>
         <form
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 p-6 shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)]"
           onSubmit={async (e) => {
             e.preventDefault();
             const { msg } = await handelNewProduct({

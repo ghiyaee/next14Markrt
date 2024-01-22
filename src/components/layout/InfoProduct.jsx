@@ -1,8 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import { useRouter } from 'next/navigation';
-// import CommentNew from '@/components/layout/Comment';
-// import AllComment from './AllComment';
 import moment from 'jalali-moment';
 import { AllComment, CommentNew } from '@/components/layout/ShowComment';
 function InfoProduct({ product }) {
@@ -118,7 +116,7 @@ function InfoProduct({ product }) {
             <h2 className="text-xl ">دیدگاه کاربران</h2>
             {showComment?.map((comment, ind) => (
               <div
-                className="border p-4 text-xl flex flex-col gap-5 rounded-xl"
+                className="border border-blue-500 p-4 text-xl flex flex-col gap-5 rounded-xl"
                 key={ind}
               >
                 {comment.show_comment ? (

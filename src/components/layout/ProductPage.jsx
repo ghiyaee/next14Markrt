@@ -32,14 +32,6 @@ function ProductPage({ product }) {
         justify-center items-center flex-wrap 
        gap-10 mt-8 transition-all duration-[2000s]"
       >
-        <p
-          className={`${
-            state.message ? 'block' : 'hidden'
-          }  transition-all duration-1000 bg-green-500 mt-2 text-white
-             px-6 py-1 rounded-full `}
-        >
-          {state.message}
-        </p>
         <div
           className="w-[300px] md:w-[500px] h-[500px] flex 
           flex-col  justify-center 
@@ -71,6 +63,14 @@ function ProductPage({ product }) {
                 خرید
               </button>
             </Link>
+            <p
+              className={`${
+                state.message ? 'block' : 'hidden'
+              }  transition-all duration-1000 bg-green-500 mt-2 text-white
+             px-6 py-1 rounded-full `}
+            >
+              {state.message}
+            </p>
           </div>
         </div>
       </section>

@@ -25,7 +25,9 @@ function Register() {
             setEmail('');
             setPassword('');
             setUser('');
-            router.push('/login');
+            setTimeout(() => {
+              router.push('/login');
+            }, 2000);
           } else {
             setMessage(res?.error);
             setEmail('');
@@ -60,11 +62,15 @@ function Register() {
           className="p-4 text-center bg-yellow-200 outline-none "
         />
         <button className="bg-primary text-white p-4">ثبت نام</button>
+      <p
+        className={`${
+          message ? 'block' : 'hidden'
+        } text-center bg-green-500 text-gray-50 p-2 rounded-lg`}
+      >
+        {message}
+      </p>
       </form>
-      <div>{message}</div>
     </section>
   );
 }
 export default Register;
-
-

@@ -87,8 +87,9 @@ function BasketPage() {
                 <div>جمع فاکتور</div>
                 <div>
                   {cartItem.reduce((a, b) => a + b.quantity * b.price, 0)}
-                </div>
+                  </div>
               </div>
+                  <Link href={'/basket/addressUser'} className='bg-primary text-gray-50 p-2'>نهایی کردن سفارش</Link>
             </>
           )}
         </div>
