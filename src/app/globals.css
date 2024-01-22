@@ -7,6 +7,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+.input{
+  width:80px;
+  height:30px;
+ 
+}
 .rtl-tag {
   direction: rtl;
 }

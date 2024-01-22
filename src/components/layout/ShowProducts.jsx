@@ -22,7 +22,7 @@ const handelEditProduct = async (data) => {
   try {
     const product = await Product.findOneAndUpdate(
       { _id: data.id },
-      { $set: { price: data.price, countInStock: data.countInStock } }
+      { $set: { price: data.price, countInStock: data.countInStock ,model:data.model,name:data.name} }
     );
     if (!product) {
       return { msg: 'تغییرات اعمال نشد' };
