@@ -7,10 +7,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-.input{
-  width:80px;
-  height:30px;
- 
+.input {
+  width: 80px;
+  height: 30px;
 }
 .rtl-tag {
   direction: rtl;
@@ -22,7 +21,8 @@
   width: 50%;
   height: auto;
 }
-.style-button{
-@apply bg-primary text-gray-50 p-1 duration-500 rounded-xl text-center
-
+.style-button {
+  @apply bg-primary text-gray-50 p-1 duration-300 
+ border-blue-500  hover:p-2 hover:shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)]
+   hover:border-x-2 text-center;
 }
