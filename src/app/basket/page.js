@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
-import product from '../product/[id]/page';
 import { useRouter } from 'next/navigation';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
@@ -89,7 +88,7 @@ function BasketPage() {
                   {cartItem.reduce((a, b) => a + b.quantity * b.price, 0)}
                   </div>
               </div>
-                  <Link href={'/basket/addressUser'} className='bg-primary text-gray-50 p-2'>نهایی کردن سفارش</Link>
+                  <Link href={{pathname:'/basket/addressUser',query:userConnect._id}} className='bg-primary text-gray-50 p-2'>نهایی کردن سفارش</Link>
             </>
           )}
         </div>
