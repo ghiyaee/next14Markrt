@@ -15,10 +15,36 @@ function AddressUser() {
   return (
     <main className="flex flex-col justify-center container m-auto">
       <h2 className="text-center p-3">ثبت آدرس</h2>
-      <div className='flex  justify-center'>
+      <div className="flex  justify-center">
         <form
           onSubmit={async (e) => {
             e.preventDefault();
+            if (
+              ostan === '' ||
+              city === '' ||
+              street === '' ||
+              codePost === '' ||
+              tell === '' ||
+              mobile === ''
+            ) {
+              setMessage('تمام مقادیرباید واردشوند');
+              setTimeout(() => {
+                setMessage('');
+              }, 2000);
+              return;
+            }
+            if (
+              isNaN(Number(codePost)) ||
+              isNaN(Number(tell)) ||
+              isNaN(Number(mobile))
+            ) {
+              setMessage(' مقادیر وارده اشتباه است');
+              setTimeout(() => {
+                setMessage('');
+              }, 2000);
+              return;
+            }
+
             const { msg } = await handelNewAddress({
               ostan,
               city,
@@ -29,8 +55,11 @@ function AddressUser() {
               userConnect,
             });
             setMessage(msg);
+            setTimeout(() => {
+              setMessage('');
+            }, 2000);
           }}
-          className="flex flex-col gap-4 w-[50%]  p-6
+          className="flex flex-col gap-2 w-[50%]  p-6
         shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)]"
         >
           <input
@@ -48,19 +77,19 @@ function AddressUser() {
 
           <input
             type="text"
-            placeholder="کدپستی"
+            placeholder=" شماره کدپستی"
             value={codePost}
             onChange={(e) => setCodePost(e.target.value)}
           />
           <input
             type="text"
-            placeholder="تلفن ثابت"
+            placeholder=" شماره تلفن ثابت"
             value={tell}
             onChange={(e) => setTell(e.target.value)}
           />
           <input
             type="text"
-            placeholder="تلفن همراه"
+            placeholder=" شماره تلفن همراه"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
           />
@@ -88,3 +117,11 @@ function AddressUser() {
 }
 
 export default AddressUser;
+
+// if (isNaN(codePost) || isNaN(tell) || isNaN(mobile)) {
+//   setMessage('تمام مقادیرباید واردشوند');
+//   setTimeout(() => {
+//     setMessage('');
+//   }, 2000);
+//   return;
+// }
