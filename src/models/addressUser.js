@@ -9,6 +9,6 @@ const schemaAddress = new mongoose.Schema({
   mobile: { type: Number, required: true },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
-mongoose.model = {};
+mongoose.models = {};
 const Address = mongoose.model('Address', schemaAddress);
 export default Address;
