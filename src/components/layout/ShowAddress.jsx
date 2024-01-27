@@ -1,7 +1,6 @@
 'use server'
 import Address from '@/models/addressUser';
 async function handelNewAddress(data) {
-  console.log(data);
   try {
     const address = new Address({
       ostan: data.ostan,

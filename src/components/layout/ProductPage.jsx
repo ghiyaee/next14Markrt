@@ -4,15 +4,19 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import InfoProduct from './InfoProduct';
+import {basketDb} from '@/components/layout/BasketDb'
 function ProductPage({ product }) {
+  console.log(product)
   const [active, setActive] = useState(product?.img[0]);
   const { dispatch, state } = useContext(ContextStore);
-  const { message, cartItem } = state;
+  const { message, cartItem ,userConnect} = state;
   const handelAddProduct = async (product) => {
+    console.log(product);
     const exist = cartItem.some((item) => item._id === product._id);
     if (!exist) {
       dispatch({ type: 'ADDITEM', payload: product });
       dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
+      await basketDb({product,userConnect,quantity:+1});
     } else {
       dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
     }

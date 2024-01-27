@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import handelLogin from './HandelLogin';
 import { useRouter } from 'next/navigation';
+import { handelBasket, handelBasketDb } from './BasketDb';
 function Login() {
   const router = useRouter();
   const { state, dispatch } = useContext(ContextStore);
@@ -26,12 +27,18 @@ function Login() {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const res = await handelLogin({ email, password });
-          if (res) {
-            dispatch({ type: 'USERLOGIN', payload: res.res });
+          const { resulteEmail, resulteAddress, resulteBasket, msgError } =
+            await handelLogin({
+              email,
+              password,
+              userConnect,
+            });
+               if (resulteEmail) {
+            dispatch({ type: 'USERLOGIN', payload: resulteEmail });
+            dispatch({ type: 'ADDRESS', payload: resulteAddress });
             router.push('/');
           } else {
-            setErroe(res?.msgError);
+            setErroe(msgError);
           }
         }}
         className="flex flex-col w-96 gap-4 p-4"

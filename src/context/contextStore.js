@@ -7,24 +7,31 @@ const initailState = {
   localData: [],
   message: '',
   comment: [],
+  address: [],
 };
 const reducer = (state, action) => {
   switch (action.type) {
     case 'USERLOGIN':
       const user = action.payload;
-      const login =state.userConnect.find((f) => f._id === user._id);
+      const login = state.userConnect.find((f) => f._id === user._id);
       if (!login) {
         return {
           ...state,
-          userConnect: [...state.userConnect,user],
+          userConnect: [...state.userConnect, user],
         };
       }
     case 'USERLOGOUT':
       const userLogOut = action.payload;
+      return {
+        ...state,
+        userConnect: userLogOut,
+      };
+    case 'ADDRESS':
+      const address = action.payload;
          return {
         ...state,
-           userConnect: userLogOut
-         };
+        address: [...state.address, address],
+      };
     case 'ADDITEM':
       const item = action.payload;
       return {

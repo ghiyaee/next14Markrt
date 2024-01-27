@@ -9,7 +9,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
-  const { cartItem, userConnect } = state;
+  const { cartItem, userConnect, address } = state;
   const router = useRouter();
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
@@ -20,6 +20,7 @@ function BasketPage() {
   const handelCounterDes = (product) => {
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
+console.log(cartItem);
   return (
     <section>
       {userConnect.length > 0 ? (
@@ -41,7 +42,7 @@ function BasketPage() {
                       width={40}
                       height={40}
                       alt="mobile"
-                      src={pro.img[0]}
+                      src={pro.product_id?.img[0]}
                       priority={true}
                     />
                     <div className="text-gray-500 flex items-center gap-1 md:gap-4 ">
@@ -86,9 +87,23 @@ function BasketPage() {
                 <div>جمع فاکتور</div>
                 <div>
                   {cartItem.reduce((a, b) => a + b.quantity * b.price, 0)}
-                  </div>
+                </div>
               </div>
-                  <Link href={'/basket/addressUser'} className='bg-primary text-gray-50 p-2'>نهایی کردن سفارش</Link>
+              {address[0] === null ? (
+                <Link
+                  href={'/basket/addressUser'}
+                  className="bg-primary text-gray-50 p-2"
+                >
+                  ثبت آدرس 
+                </Link>
+              ) : (
+                <Link
+                  href={'/'}
+                  className="bg-primary text-gray-50 p-2"
+                >
+                  نهایی کردن سفارش
+                </Link>
+              )}
             </>
           )}
         </div>
