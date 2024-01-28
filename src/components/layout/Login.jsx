@@ -31,11 +31,14 @@ function Login() {
             await handelLogin({
               email,
               password,
-              userConnect,
             });
-               if (resulteEmail) {
+          console.log(resulteBasket);
+          if (resulteEmail) {
             dispatch({ type: 'USERLOGIN', payload: resulteEmail });
             dispatch({ type: 'ADDRESS', payload: resulteAddress });
+            if (resulteBasket !== null) {
+              dispatch({ type: 'ADDITEM', payload: resulteBasket });
+            }
             router.push('/');
           } else {
             setErroe(msgError);

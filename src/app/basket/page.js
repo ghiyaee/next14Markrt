@@ -86,8 +86,8 @@ console.log(cartItem);
               >
                 <div>جمع فاکتور</div>
                 <div>
-                  {cartItem.reduce((a, b) => a + b.quantity * b.price, 0)}
-                </div>
+                  {cartItem.reduce((a, b) => a + Number(b.quantity)  * Number(b.product_id?. price) , 0)}
+                </div> 
               </div>
               {address[0] === null ? (
                 <Link

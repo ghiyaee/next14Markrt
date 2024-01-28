@@ -5,11 +5,12 @@ import BasketDb from '@/models/basketDb';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 async function handelLogin(data) {
-  console.log(data);
   try {
     const checkEmail = await User.findOne({ email: data.email });
-    const checkBasketDb = await BasketDb.findOne({ user_id: checkEmail._id });
-     const checkAddress = await Address.findOne({ user_id: checkEmail._id })
+    const checkBasketDb = await BasketDb.findOne({
+      user_id: checkEmail._id,
+    }).populate(['user_id', 'product_id']);
+    const checkAddress = await Address.findOne({ user_id: checkEmail._id });
     const password = await bcrypt.compare(data.password, checkEmail.password);
     if (checkEmail.email === data.email && password) {
       return {
@@ -25,5 +26,3 @@ async function handelLogin(data) {
   }
 }
 export default handelLogin;
-
-
