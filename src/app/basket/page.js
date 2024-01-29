@@ -7,15 +7,18 @@ import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-function BasketPage() {
+import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
+ function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
   const { cartItem, userConnect, address } = state;
   const router = useRouter();
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
+    
   };
-  const handelCounterAdd = (product) => {
-    dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+   const handelCounterAdd = async (product) => {
+     const {quantity} = await handelUpdataBasket(product);
+      dispatch({ type: 'INCREMENT_QUANTITY', payload: quantity });
   };
   const handelCounterDes = (product) => {
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
@@ -47,13 +50,13 @@ console.log(cartItem);
                     />
                     <div className="text-gray-500 flex items-center gap-1 md:gap-4 ">
                       <div>
-                        <p> برند: {pro.name}</p>
-                        <p>قیمت :{pro.price}</p>
+                        <p> برند: {pro.product_id?.name}</p>
+                        <p>قیمت :{pro.product_id?.price}</p>
                       </div>
                       <Link href={``}>
                         <button
                           className="bg-primary text-white  px-2  py-1 rounded-full"
-                          onClick={() => handelCounterAdd(pro)}
+                          onClick={() => handelCounterAdd(pro.product_id._id)}
                         >
                           <IoMdAdd />
                         </button>
@@ -86,21 +89,22 @@ console.log(cartItem);
               >
                 <div>جمع فاکتور</div>
                 <div>
-                  {cartItem.reduce((a, b) => a + Number(b.quantity)  * Number(b.product_id?. price) , 0)}
-                </div> 
+                  {cartItem.reduce(
+                    (a, b) =>
+                      a + Number(b.quantity) * Number(b.product_id?.price),
+                    0
+                  )}
+                </div>
               </div>
               {address[0] === null ? (
                 <Link
                   href={'/basket/addressUser'}
                   className="bg-primary text-gray-50 p-2"
                 >
-                  ثبت آدرس 
+                  ثبت آدرس
                 </Link>
               ) : (
-                <Link
-                  href={'/'}
-                  className="bg-primary text-gray-50 p-2"
-                >
+                <Link href={'/'} className="bg-primary text-gray-50 p-2">
                   نهایی کردن سفارش
                 </Link>
               )}

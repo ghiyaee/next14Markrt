@@ -36,10 +36,11 @@ const reducer = (state, action) => {
       const item = action.payload;
       return {
         ...state,
-        cartItem: [...state.cartItem, { ...item, quantity: 1 }],
+        cartItem: [...state.cartItem, { ...item}],
       };
     case 'INCREMENT_QUANTITY':
       const productAdd = action.payload;
+      console.log(productAdd);
       const result = state.cartItem.find((p) => p._id === productAdd._id);
       if (result) {
         return {

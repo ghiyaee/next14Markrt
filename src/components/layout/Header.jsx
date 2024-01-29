@@ -42,7 +42,7 @@ function Header() {
               } text-center w-5 h-5 bg-primary 
             rounded-full text-white absolute -top-3 -right-3`}
             >
-              {cartItem.reduce((a, b) => a + b.quantity, 0)}
+              {cartItem.reduce((a, b) => a + b.Number(quantity) , 0)}
             </span>
           </div>
         </Link>

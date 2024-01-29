@@ -8,13 +8,14 @@ import {basketDb} from '@/components/layout/BasketDb'
 function ProductPage({ product }) {
   const [active, setActive] = useState(product?.img[0]);
   const { dispatch, state } = useContext(ContextStore);
-  const { message, cartItem ,userConnect} = state;
+  const { message, cartItem, userConnect } = state;
+  console.log(cartItem);
   const handelAddProduct = async (product) => {
-    const exist = cartItem.some((item) => item._id === product._id);
+    const exist = cartItem.some((item) => item.product_id?._id === product._id);
     if (!exist) {
       dispatch({ type: 'ADDITEM', payload: product });
       dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
-      await basketDb({product,userConnect,quantity:+0});
+      await basketDb({product,userConnect,quantity:+1});
     } else {
       dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
     }
