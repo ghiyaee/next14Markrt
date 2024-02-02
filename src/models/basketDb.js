@@ -5,7 +5,7 @@ const schemaBasket = new mongoose.Schema(
   {
     product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    quantity: { type: Number },
+    quantity: { type: Number ,default:1},
   },
   { timestamps: true }
 );

@@ -17,8 +17,8 @@ import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
     
   };
    const handelCounterAdd = async (product) => {
-     const {quantity} = await handelUpdataBasket(product);
-      dispatch({ type: 'INCREMENT_QUANTITY', payload: quantity });
+    //  const {quantity} = await handelUpdataBasket(product);
+      dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
   const handelCounterDes = (product) => {
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
@@ -56,7 +56,7 @@ console.log(cartItem);
                       <Link href={``}>
                         <button
                           className="bg-primary text-white  px-2  py-1 rounded-full"
-                          onClick={() => handelCounterAdd(pro.product_id._id)}
+                          onClick={() => handelCounterAdd(pro)}
                         >
                           <IoMdAdd />
                         </button>
@@ -91,7 +91,7 @@ console.log(cartItem);
                 <div>
                   {cartItem.reduce(
                     (a, b) =>
-                      a + Number(b.quantity) * Number(b.product_id?.price),
+                      a + Number(b.quantity) * Number(b.price),
                     0
                   )}
                 </div>

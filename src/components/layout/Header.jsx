@@ -7,7 +7,8 @@ import { FaUserAlt } from 'react-icons/fa';
 function Header() {
   const { state, dispatch } = useContext(ContextStore);
   const { userConnect, cartItem } = state;
-    const handelLogOut = () => {
+  console.log(cartItem);
+  const handelLogOut = () => {
     dispatch({ type: 'USERLOGOUT', payload: [] });
   };
   return (
@@ -42,7 +43,7 @@ function Header() {
               } text-center w-5 h-5 bg-primary 
             rounded-full text-white absolute -top-3 -right-3`}
             >
-              {cartItem.reduce((a, b) => a + b.Number(quantity) , 0)}
+              {cartItem.reduce((a, c) => a +Number(c.quantity) , 0)}
             </span>
           </div>
         </Link>
@@ -90,51 +91,3 @@ function Header() {
 
 export default Header;
 
-//  {userConnect?.length > 0 ?
-
-//           <Link
-//             href={'/dashboardAdmin'}
-//             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
-//             onClick={handelLogOut}
-//           >
-//             <p>{userConnect[0].name}</p>
-//           </Link>
-//           {userConnect?.length > 0 ? <Link
-//             href={'/dashboardAdmin'}
-//             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
-//             onClick={handelLogOut}
-//           >
-//             <p>{userConnect[0].name}</p>
-//           </Link> : }  )
-//           : (
-//           <Link
-//             href={'/login'}
-//             className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
-//           >
-//             ورود / ثبت نام
-//           </Link>
-//         )}
-
-// {userConnect?.length > 0 ? (
-//         <div className="flex gap-3 ">
-//           <FaUserAlt className="text-red-500" />:<h2>داشبورد</h2>
-//           {userConnect[0]?.isAdmin ? (
-//             <Link href={'/dashboardAdmin'} className="text-blue-600">
-//                {userConnect[0]?.name}
-//             </Link>
-//           ) : (
-//             <Link href={'/dashboardUser'} className="text-blue-600">
-//               {userConnect[0]?.name}
-//             </Link>
-//           )}
-//           <Link to={'/'} className="text-red-500" onClick={() => ''}>
-//             خروج
-//           </Link>
-//         </div>
-//       ) : (
-//         <Link
-//           href={'/login'}
-//           className="bg-primary text-white px-4 md:px-8 py-2 rounded-full"
-//         >
-//           ورود / ثبت نام
-//         </Link>

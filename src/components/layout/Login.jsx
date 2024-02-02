@@ -36,7 +36,7 @@ function Login() {
           if (resulteEmail) {
             dispatch({ type: 'USERLOGIN', payload: resulteEmail });
             dispatch({ type: 'ADDRESS', payload: resulteAddress });
-            if (resulteBasket !== null) {
+            if (resulteBasket.length>0) {
               dispatch({ type: 'ADDITEM', payload: resulteBasket });
             }
             router.push('/');

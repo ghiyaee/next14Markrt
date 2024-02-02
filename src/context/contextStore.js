@@ -34,9 +34,10 @@ const reducer = (state, action) => {
       };
     case 'ADDITEM':
       const item = action.payload;
+      console.log(item);
       return {
         ...state,
-        cartItem: [...state.cartItem, { ...item}],
+        cartItem: [...state.cartItem, { ...item,quantity:1}],
       };
     case 'INCREMENT_QUANTITY':
       const productAdd = action.payload;
