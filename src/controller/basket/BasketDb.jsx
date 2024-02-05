@@ -24,12 +24,26 @@ const handelUpdataBasket = async (id) => {
   }
 };
 const handelBasketDb = async ({ userConnect }) => {
-  const basket = await BasketDb.find({ user_id: userConnect?._id }).populate(
-    ['user_id', 'product_id']
-  );
+  const basket = await BasketDb.find({ user_id: userConnect?._id }).populate([
+    'user_id',
+    'product_id',
+  ]);
   console.log(`${basket} loaddb`);
   return { basket: JSON.parse(JSON.stringify(basket)) };
 };
-export { basketDb, handelBasketDb, handelUpdataBasket };
-
-
+const handelDeleteBasketProduct = async (product) => {
+  console.log(product);
+  try {
+    const del = await BasketDb.findOneAndDelete({ product_id: product.product_id ? product.product_id._id:  product._id });
+    console.log(del);
+    
+  } catch (error) {
+    console.log(error, 'ERROR DELETE FROM BASKETDB');
+  }
+};
+export {
+  basketDb,
+  handelBasketDb,
+  handelUpdataBasket,
+  handelDeleteBasketProduct,
+};

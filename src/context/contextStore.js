@@ -34,16 +34,16 @@ const reducer = (state, action) => {
       };
     case 'ADDITEM':
       const item = action.payload;
-        let updatedCartItems;
-        if (Array.isArray(item)) {
-          updatedCartItems = [...state.cartItem, ...item];
-        } else {
-          updatedCartItems = [...state.cartItem, { ...item, quantity: 1 }];
-        }
-        return {
-          ...state,
-          cartItem: updatedCartItems,
-        };
+      let updatedCartItems;
+      if (Array.isArray(item)) {
+        updatedCartItems = [...state.cartItem, ...item];
+      } else {
+        updatedCartItems = [...state.cartItem, { ...item, quantity: 1 }];
+      }
+      return {
+        ...state,
+        cartItem: updatedCartItems,
+      };
 
     case 'INCREMENT_QUANTITY':
       const productAdd = action.payload;
@@ -79,12 +79,6 @@ const reducer = (state, action) => {
           ],
         };
       }
-    case 'PRODUCTLOCAL':
-      const local = action.payload;
-      return {
-        ...state,
-        localData: [...state.localData, local],
-      };
     case 'DELETEPRODUCT':
       const productItem = action.payload;
       const products = state.cartItem.filter(

@@ -7,14 +7,17 @@ import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
+import { handelDeleteBasketProduct } from '@/controller/basket/BasketDb';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
   const { cartItem, userConnect, address } = state;
   console.log(cartItem);
   const router = useRouter();
-  const handelDeleteProduct = (product) => {
+  const handelDeleteProduct = async (product) => {
+    await handelDeleteBasketProduct(product);
     dispatch({ type: 'DELETEPRODUCT', payload: product });
   };
+
   const handelCounterAdd = async (product) => {
     dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
@@ -47,7 +50,9 @@ function BasketPage() {
                     />
                     <div className="text-gray-500 flex-1 flex items-center justify-between gap-4 md:gap-4 ">
                       <div>
-                        <p> برند:
+                        <p>
+                          {' '}
+                          برند:
                           {pro.product_id ? pro.product_id?.name : pro.name}
                         </p>
                         <p>
@@ -55,33 +60,32 @@ function BasketPage() {
                           {pro.product_id ? pro.product_id?.price : pro.price}
                         </p>
                       </div>
-                      <div className='flex gap-4'>
-
-                      <Link href={``}>
-                        <button
-                          className="bg-primary text-white  px-2  py-1 rounded-full"
-                          onClick={() => handelCounterAdd(pro)}
-                        >
-                          <IoMdAdd />
-                        </button>
-                      </Link>
-                      <p>{pro.quantity}</p>
-                      <Link href={``}>
-                        <button
-                          className="bg-primary text-white px-2  py-1 rounded-full"
-                          onClick={() => handelCounterDes(pro)}
-                        >
-                          <GrFormSubtract />
-                        </button>
-                      </Link>
-                      <Link href={``}>
-                        <button
-                          className="bg-primary text-white  px-2  py-1 rounded-full"
-                          onClick={() => handelDeleteProduct(pro)}
-                        >
-                          <MdDeleteForever />
-                        </button>
-                      </Link>
+                      <div className="flex gap-4">
+                        <Link href={``}>
+                          <button
+                            className="bg-primary text-white  px-2  py-1 rounded-full"
+                            onClick={() => handelCounterAdd(pro)}
+                          >
+                            <IoMdAdd />
+                          </button>
+                        </Link>
+                        <p>{pro.quantity}</p>
+                        <Link href={``}>
+                          <button
+                            className="bg-primary text-white px-2  py-1 rounded-full"
+                            onClick={() => handelCounterDes(pro)}
+                          >
+                            <GrFormSubtract />
+                          </button>
+                        </Link>
+                        <Link href={``}>
+                          <button
+                            className="bg-primary text-white  px-2  py-1 rounded-full"
+                            onClick={() => handelDeleteProduct(pro)}
+                          >
+                            <MdDeleteForever />
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
