@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import InfoProduct from './InfoProduct';
-import { basketDb } from '@/components/layout/BasketDb';
+import { basketDb } from '@/controller/basket/BasketDb';
 function ProductPage({ product }) {
 
   const [active, setActive] = useState(product?.img[0]);

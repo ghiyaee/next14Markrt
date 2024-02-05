@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import {
   handelProduct,
   handelEditProduct,
-} from '@/components/layout/ShowProducts';
+} from '@/controller/products/ShowProducts';
 import product from '@/app/product/[id]/page';
 function EditProduct({ searchParams }) {
   const router = useRouter();
@@ -16,7 +16,7 @@ function EditProduct({ searchParams }) {
   const [img, setImg] = useState([]);
   const [message, setMessage] = useState('');
   const [model, setModel] = useState('');
-   const [name, setName] = useState('');
+  const [name, setName] = useState('');
   console.log(img);
   useEffect(() => {
     const fetachData = async () => {
@@ -28,7 +28,7 @@ function EditProduct({ searchParams }) {
         setId(product._id);
         setImg(product.img);
         setModel(product.model);
-        setName(product.name)
+        setName(product.name);
       } catch (error) {
         console.log(error);
       }

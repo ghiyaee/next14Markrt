@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import DashbordAdmin from '@/components/layout/DashbordAdmin';
 import { useState } from 'react';
-import { handelNewProduct } from '@/components/layout/ShowProducts';
+import { handelNewProduct } from '@/controller/products/ShowProducts';
 import { useRouter } from 'next/navigation';
 function NewProduct() {
   const router = useRouter();

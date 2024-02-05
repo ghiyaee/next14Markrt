@@ -7,7 +7,6 @@ import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
   const { cartItem, userConnect, address } = state;
@@ -17,7 +16,6 @@ function BasketPage() {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
   };
   const handelCounterAdd = async (product) => {
-    //  const {quantity} = await handelUpdataBasket(product);
     dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
   const handelCounterDes = (product) => {

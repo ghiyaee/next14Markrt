@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import { useRouter } from 'next/navigation';
 import moment from 'jalali-moment';
-import { AllComment, CommentNew } from '@/components/layout/ShowComment';
+import { AllComment, CommentNew } from '@/controller/comment/ShowComment';
 function InfoProduct({ product }) {
   const router = useRouter();
   const [success, setSucces] = useState('');

@@ -4,8 +4,7 @@ import data from '../../../data';
 const dbConnect = require('@/dbConnect');
 const Product = require('@/models/products').default;
 import Link from 'next/link';
-import Comment from '@/models/comments';
-import { useRouter } from 'next/navigation';
+
 async function ListProducts() {
   await dbConnect();
   // await Product.deleteMany({})

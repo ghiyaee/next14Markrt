@@ -3,7 +3,7 @@ import DashbordAdmin from '@/components/layout/DashbordAdmin';
 import {
   handelAllProducts,
   hamdelDeleteProduct,
-} from '@/components/layout/ShowProducts';
+} from '@/controller/products/ShowProducts';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -43,7 +43,7 @@ function ProductsPage() {
                   src={product.img[0]}
                   alt={'image'}
                   fill
-                  objectFit='contain'
+                  objectFit="contain"
                 />
               </div>
               <p className="w-44">نام محصول : {product.name}</p>
@@ -60,12 +60,14 @@ function ProductsPage() {
               >
                 ویرایش
               </Link>
-              <button onClick={async (e) => {
-                e.preventDefault()
-                const {products} = await hamdelDeleteProduct(product._id)
-                setProducts(products)
-                
-              }} className="px-4 rounded-lg py-1 bg-primary text-gray-50">
+              <button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  const { products } = await hamdelDeleteProduct(product._id);
+                  setProducts(products);
+                }}
+                className="px-4 rounded-lg py-1 bg-primary text-gray-50"
+              >
                 حذف
               </button>
             </div>

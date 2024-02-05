@@ -4,7 +4,7 @@ import {
   handelMsg,
   handelAllComment,
   handelDeleteComment,
-} from '@/components/layout/ShowComment';
+} from '@/controller/comment/ShowComment';
 import { useEffect, useState } from 'react';
 import moment from 'jalali-moment';
 function CommentsPage() {
@@ -36,7 +36,7 @@ function CommentsPage() {
                 key={c._id}
                 className="flex flex-col gap-5 p-4 border border-blue-600 rounded-lg w-[98%] m-2"
               >
-                <div className=' flex gap-4 flex-wrap'>
+                <div className=" flex gap-4 flex-wrap">
                   {moment(c.date).locale('fa').format('HH:D YYYY/MM/DD')}
                   <p> نام کاربر:{c.user_id.name}</p>
                 </div>

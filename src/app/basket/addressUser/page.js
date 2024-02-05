@@ -1,5 +1,5 @@
 'use client';
-import handelNewAddress from '@/components/layout/ShowAddress';
+import handelNewAddress from '@/controller/address/ShowAddress';
 import { useState, useContext } from 'react';
 import { ContextStore } from '@/context/contextStore';
 function AddressUser() {

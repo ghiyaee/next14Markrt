@@ -32,26 +32,4 @@ const handelBasketDb = async ({ userConnect }) => {
 };
 export { basketDb, handelBasketDb, handelUpdataBasket };
 
-// try {
-//   const productBasket = await BasketDb.find({
-//     user_id: userConnect[0]._id,
-//     product_id: product._id,
-//   });
-//   console.log(productBasket);
-//   if (productBasket) {
-//     await BasketDb.findOneAndUpdate(
-//       { product_id: product._id },
-//       { quantity: product.quantity + Number(quantity) }
-//     );
-//   } else {
-//     const newProduct = new BasketDb({
-//       product_id: product._id,
-//       user_id: userConnect[0]._id,
-//       quantity: quantity,
-//     });
-//     await newProduct.save();
-//     console.log(newProduct);
-//   }
-// } catch (error) {
-//   console.log(error + 'error basketdb');
-// }
+
