@@ -8,18 +8,17 @@ import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
- function BasketPage() {
+function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
-   const { cartItem, userConnect, address } = state;
-   console.log(cartItem);
+  const { cartItem, userConnect, address } = state;
+  console.log(cartItem);
   const router = useRouter();
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
-    
   };
-   const handelCounterAdd = async (product) => {
+  const handelCounterAdd = async (product) => {
     //  const {quantity} = await handelUpdataBasket(product);
-      dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+    dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
   const handelCounterDes = (product) => {
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
@@ -48,11 +47,18 @@ import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
                       src={pro.product_id ? pro.product_id?.img[0] : pro.img[0]}
                       priority={true}
                     />
-                    <div className="text-gray-500 flex items-center gap-1 md:gap-4 ">
+                    <div className="text-gray-500 flex-1 flex items-center justify-between gap-4 md:gap-4 ">
                       <div>
-                        <p> برند: {pro.product_id? pro.product_id?.name:pro.name}</p>
-                        <p>قیمت :{pro.product_id? pro.product_id?.price:pro.price}</p>
+                        <p> برند:
+                          {pro.product_id ? pro.product_id?.name : pro.name}
+                        </p>
+                        <p>
+                          قیمت :
+                          {pro.product_id ? pro.product_id?.price : pro.price}
+                        </p>
                       </div>
+                      <div className='flex gap-4'>
+
                       <Link href={``}>
                         <button
                           className="bg-primary text-white  px-2  py-1 rounded-full"
@@ -78,6 +84,7 @@ import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
                           <MdDeleteForever />
                         </button>
                       </Link>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -91,7 +98,9 @@ import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
                 <div>
                   {cartItem.reduce(
                     (a, c) =>
-                      a + Number(c.quantity? c.quantity:c.product_id.quantity) * Number(c.product_id? c.product_id?.price:c.price),
+                      a +
+                      Number(c.quantity ? c.quantity : c.product_id.quantity) *
+                        Number(c.product_id ? c.product_id?.price : c.price),
                     0
                   )}
                 </div>
