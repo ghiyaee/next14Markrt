@@ -32,11 +32,11 @@ const handelBasketDb = async ({ userConnect }) => {
   return { basket: JSON.parse(JSON.stringify(basket)) };
 };
 const handelDeleteBasketProduct = async (product) => {
-  console.log(product);
   try {
-    const del = await BasketDb.findOneAndDelete({ product_id: product.product_id ? product.product_id._id:  product._id });
-    console.log(del);
-    
+    const del = await BasketDb.findOneAndDelete({
+      product_id: product.product_id ? product.product_id._id : product._id,
+    });
+
   } catch (error) {
     console.log(error, 'ERROR DELETE FROM BASKETDB');
   }
