@@ -7,7 +7,6 @@ import { FaUserAlt } from 'react-icons/fa';
 function Header() {
   const { state, dispatch } = useContext(ContextStore);
   const { userConnect, cartItem } = state;
-  console.log(cartItem);
   const handelLogOut = () => {
     dispatch({ type: 'USERLOGOUT', payload: [] });
   };

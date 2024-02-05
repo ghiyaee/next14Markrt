@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 const ContextStore = createContext();
 const initailState = {
   userConnect: [],
@@ -28,17 +28,23 @@ const reducer = (state, action) => {
       };
     case 'ADDRESS':
       const address = action.payload;
-         return {
+      return {
         ...state,
         address: [...state.address, address],
       };
     case 'ADDITEM':
       const item = action.payload;
-      console.log(item);
-      return {
-        ...state,
-        cartItem: [...state.cartItem, { ...item,quantity:1}],
-      };
+        let updatedCartItems;
+        if (Array.isArray(item)) {
+          updatedCartItems = [...state.cartItem, ...item];
+        } else {
+          updatedCartItems = [...state.cartItem, { ...item, quantity: 1 }];
+        }
+        return {
+          ...state,
+          cartItem: updatedCartItems,
+        };
+
     case 'INCREMENT_QUANTITY':
       const productAdd = action.payload;
       console.log(productAdd);
@@ -104,6 +110,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
 const ContextStorProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initailState);
   return (

@@ -1,11 +1,10 @@
 'use server';
 import BasketDb from '@/models/basketDb';
-async function basketDb({ product, userConnect, quantity }) {
+async function basketDb({ product, userConnect }) {
   try {
     const newProduct = new BasketDb({
       product_id: product._id,
       user_id: userConnect[0]._id,
-      quantity: quantity,
     });
     await newProduct.save();
   } catch (error) {
@@ -25,8 +24,7 @@ const handelUpdataBasket = async (id) => {
   }
 };
 const handelBasketDb = async ({ userConnect }) => {
-  console.log(userConnect);
-  const basket = await BasketDb.findOne({ user_id: userConnect?._id }).populate(
+  const basket = await BasketDb.find({ user_id: userConnect?._id }).populate(
     ['user_id', 'product_id']
   );
   console.log(`${basket} loaddb`);

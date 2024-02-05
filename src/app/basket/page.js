@@ -10,7 +10,8 @@ import { useRouter } from 'next/navigation';
 import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
  function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
-  const { cartItem, userConnect, address } = state;
+   const { cartItem, userConnect, address } = state;
+   console.log(cartItem);
   const router = useRouter();
   const handelDeleteProduct = (product) => {
     dispatch({ type: 'DELETEPRODUCT', payload: product });
@@ -23,7 +24,6 @@ import { basketDb, handelUpdataBasket } from '@/components/layout/BasketDb';
   const handelCounterDes = (product) => {
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
-console.log(cartItem);
   return (
     <section>
       {userConnect.length > 0 ? (
@@ -45,13 +45,13 @@ console.log(cartItem);
                       width={40}
                       height={40}
                       alt="mobile"
-                      src={pro.product_id?.img[0]}
+                      src={pro.product_id ? pro.product_id?.img[0] : pro.img[0]}
                       priority={true}
                     />
                     <div className="text-gray-500 flex items-center gap-1 md:gap-4 ">
                       <div>
-                        <p> برند: {pro.product_id?.name}</p>
-                        <p>قیمت :{pro.product_id?.price}</p>
+                        <p> برند: {pro.product_id? pro.product_id?.name:pro.name}</p>
+                        <p>قیمت :{pro.product_id? pro.product_id?.price:pro.price}</p>
                       </div>
                       <Link href={``}>
                         <button
@@ -90,8 +90,8 @@ console.log(cartItem);
                 <div>جمع فاکتور</div>
                 <div>
                   {cartItem.reduce(
-                    (a, b) =>
-                      a + Number(b.quantity) * Number(b.price),
+                    (a, c) =>
+                      a + Number(c.quantity? c.quantity:c.product_id.quantity) * Number(c.product_id? c.product_id?.price:c.price),
                     0
                   )}
                 </div>

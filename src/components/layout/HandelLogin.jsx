@@ -10,8 +10,7 @@ async function handelLogin(data) {
     const checkBasketDb = await BasketDb.find({
       user_id: checkEmail._id,
     }).populate(['user_id', 'product_id']);
-    console.log(checkBasketDb);
-    const checkAddress = await Address.findOne({ user_id: checkEmail._id });
+     const checkAddress = await Address.findOne({ user_id: checkEmail._id });
     const password = await bcrypt.compare(data.password, checkEmail.password);
     if (checkEmail.email === data.email && password) {
       return {

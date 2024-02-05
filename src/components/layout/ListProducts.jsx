@@ -21,7 +21,7 @@ async function ListProducts() {
         <div
           key={pro.id}
           className=" flex flex-col justify-between items-center gap-5 p-12 
-        hover:scale-105 duration-700 rounded-lg 
+        hover:scale-105 duration-700 hover:bg-green-500 hover:text-gray-50 rounded-lg 
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
         >
           <Image
@@ -31,13 +31,13 @@ async function ListProducts() {
             src={pro.img[0]}
             priority={false}
           />
-          <div className="text-gray-500  ">
+          <div className=" ">
             <p> برند: {pro.name}</p>
             <p>سال ساخت :{pro.model}</p>
             <p>قیمت :{pro.price}</p>
             <p>کیفیت :{pro.description}</p>
             <Link href={`/product/${pro.slug}`}>
-              <button className="bg-primary text-white px-6 py-1 mt-2 rounded-full w-full ">
+              <button className="bg-primary  text-white px-6 py-1 mt-2 rounded-full w-full ">
                 بیشتر...
               </button>
             </Link>
