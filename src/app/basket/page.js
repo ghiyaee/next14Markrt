@@ -14,7 +14,9 @@ function BasketPage() {
   console.log(cartItem);
   const router = useRouter();
   const handelDeleteProduct = async (product) => {
-    await handelDeleteBasketProduct(product);
+    setTimeout(async () => {
+      await handelDeleteBasketProduct(product);
+    }, 300);
     dispatch({ type: 'DELETEPRODUCT', payload: product });
   };
 
