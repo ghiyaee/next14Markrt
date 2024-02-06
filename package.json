@@ -19,6 +19,7 @@
     "react-icons": "^4.12.0",
     "react-moment": "^1.1.3",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
     "save": "^2.9.0",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.0.5"

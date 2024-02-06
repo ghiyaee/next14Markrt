@@ -7,7 +7,11 @@ import { IoMdAdd } from 'react-icons/io';
 import { GrFormSubtract } from 'react-icons/gr';
 import { MdDeleteForever } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
-import { handelDeleteBasketProduct } from '@/controller/basket/BasketDb';
+import {
+  handelDeleteBasketProduct,
+  handelAddUpdataBasket,
+  handelDecUpdataBasket,
+} from '@/controller/basket/BasketDb';
 
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
@@ -36,9 +40,16 @@ function BasketPage() {
     setIsActive(true);
   };
   const handelCounterAdd = async (product) => {
+       setTimeout(async () => {
+      await handelAddUpdataBasket(product)
+    },300)
     dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
   const handelCounterDes = (product) => {
+    console.log(product);
+    setTimeout(async () => {
+     await handelDecUpdataBasket(product) 
+    },300)
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
   return (
@@ -77,8 +88,7 @@ function BasketPage() {
                       <div className="text-gray-500 flex-1 flex items-center justify-between gap-4 md:gap-4 ">
                         <div>
                           <p>
-                            {' '}
-                            برند:
+                             برند:
                             {pro.product_id ? pro.product_id?.name : pro.name}
                           </p>
                           <p>

@@ -1,8 +1,9 @@
+import DashboardUser from '@/components/layout/DashboardUser'
 import React from 'react'
 
 function DashboardPageUser() {
   return (
-    <div> DashboardPageUser</div>
+    <DashboardUser/>
   )
 }
 

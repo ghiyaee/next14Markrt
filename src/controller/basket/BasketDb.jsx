@@ -11,11 +11,28 @@ async function basketDb({ product, userConnect }) {
     console.log(error + 'error at save data to db');
   }
 }
-const handelUpdataBasket = async (id) => {
+const handelAddUpdataBasket = async (product) => {
   try {
-    const product = await BasketDb.findOneAndUpdate(
-      { product_id: id },
+    const products = await BasketDb.findOneAndUpdate(
+      {
+        product_id: product.product_id ? product.product_id?._id : product._id,
+      },
       { $inc: { quantity: 1 } },
+      { new: true }
+    );
+    return { quantity: JSON.parse(JSON.stringify(product)) };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const handelDecUpdataBasket = async (product) => {
+  try {
+    const products = await BasketDb.findOneAndUpdate(
+      {
+        product_id: product.product_id ? product.product_id?._id : product._id,
+      },
+      { $inc: { quantity: -1 } },
       { new: true }
     );
     return { quantity: JSON.parse(JSON.stringify(product)) };
@@ -36,7 +53,6 @@ const handelDeleteBasketProduct = async (product) => {
     const del = await BasketDb.findOneAndDelete({
       product_id: product.product_id ? product.product_id._id : product._id,
     });
-
   } catch (error) {
     console.log(error, 'ERROR DELETE FROM BASKETDB');
   }
@@ -44,6 +60,7 @@ const handelDeleteBasketProduct = async (product) => {
 export {
   basketDb,
   handelBasketDb,
-  handelUpdataBasket,
+  handelAddUpdataBasket,
   handelDeleteBasketProduct,
+  handelDecUpdataBasket,
 };
