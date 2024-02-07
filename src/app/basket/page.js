@@ -12,7 +12,10 @@ import {
   handelAddUpdataBasket,
   handelDecUpdataBasket,
 } from '@/controller/basket/BasketDb';
-
+import {
+  handeldesCountInStock,
+  handelIncCountInstock,
+} from '@/controller/products/ShowProducts';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
   const { cartItem, userConnect, address } = state;
@@ -40,16 +43,17 @@ function BasketPage() {
     setIsActive(true);
   };
   const handelCounterAdd = async (product) => {
-       setTimeout(async () => {
-      await handelAddUpdataBasket(product)
-    },300)
+    setTimeout(async () => {
+      await handelAddUpdataBasket(product);
+      await handeldesCountInStock(product);
+    }, 300);
     dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
   };
   const handelCounterDes = (product) => {
-    console.log(product);
     setTimeout(async () => {
-     await handelDecUpdataBasket(product) 
-    },300)
+      await handelDecUpdataBasket(product);
+      await handelIncCountInstock(product)
+    }, 300);
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
   return (
@@ -88,7 +92,7 @@ function BasketPage() {
                       <div className="text-gray-500 flex-1 flex items-center justify-between gap-4 md:gap-4 ">
                         <div>
                           <p>
-                             برند:
+                            برند:
                             {pro.product_id ? pro.product_id?.name : pro.name}
                           </p>
                           <p>

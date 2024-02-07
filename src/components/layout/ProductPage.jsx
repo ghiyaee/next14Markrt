@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import InfoProduct from './InfoProduct';
-import { basketDb } from '@/controller/basket/BasketDb';
+import { basketDb} from '@/controller/basket/BasketDb';
+import {handeldesCountInStock} from '@/controller/products/ShowProducts'
 import FadeLoader from 'react-spinners/FadeLoader';
 function ProductPage({ product }) {
 
@@ -19,6 +20,7 @@ function ProductPage({ product }) {
       dispatch({ type: 'ADDITEM', payload: product });
       dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
       await basketDb({ product, userConnect });
+      await handeldesCountInStock(product._id)
     } else {
       dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
     }
@@ -74,15 +76,25 @@ function ProductPage({ product }) {
                 <p> سال ساخت:{product?.model}</p>
                 <p>قیمت :{product?.price}</p>
                 <p>کیفیت :{product?.description}</p>
-                <Link href={``}>
-                  <button
+                {product?.countInStock > 0 ? (
+                  <Link href={``}>
+                    <button
+                      className="bg-primary text-white
+                      px-6 py-1 rounded-full w-full"
+                      onClick={() => handelAddProduct(product)}
+                    >
+                      خرید
+                    </button>
+                  </Link>
+                ) : (
+                  <div
                     className="bg-primary text-white
-             px-6 py-1 rounded-full w-full"
-                    onClick={() => handelAddProduct(product)}
+                      px-6 py-1 rounded-full w-full"
                   >
-                    خرید
-                  </button>
-                </Link>
+                    اتمام موجودی
+                  </div>
+                )}
+
                 <p
                   className={`${
                     state.message ? 'block' : 'hidden'

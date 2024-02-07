@@ -65,9 +65,29 @@ const handelNewProduct = async (data) => {
 const hamdelDeleteProduct = async (id) => {
   try {
     const product = await Product.findByIdAndDelete({ _id: id });
-    const products = await Product.find()
-    return{products:JSON.parse(JSON.stringify(products))}
-  } catch (error) {console.log(error,'this is delete but error');}
+    const products = await Product.find();
+    return { products: JSON.parse(JSON.stringify(products)) };
+  } catch (error) {
+    console.log(error, 'this is delete but error');
+  }
+};
+const handeldesCountInStock = async (id) => {
+  const productId = id.product_id ? id.product_id._id : id;
+  const product = await Product.findById(productId);
+  if (product.countInStock > 0) {
+    const product = await Product.findOneAndUpdate(
+      { _id: productId },
+      { $inc: { countInStock: -1 } },
+      { new: true }
+    );
+  }
+};
+const handelIncCountInstock = async (id) => {
+  const product = await Product.findOneAndUpdate(
+    { _id: id.product_id ? id.product_id._id : id },
+    { $inc: { countInStock: 1 } },
+    { new: true }
+  );
 };
 export {
   handelAllProducts,
@@ -75,4 +95,6 @@ export {
   handelEditProduct,
   handelNewProduct,
   hamdelDeleteProduct,
+  handeldesCountInStock,
+  handelIncCountInstock,
 };
