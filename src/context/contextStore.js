@@ -8,6 +8,7 @@ const initailState = {
   message: '',
   comment: [],
   address: [],
+  cartTotal:0
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,7 +46,6 @@ const reducer = (state, action) => {
         ...state,
         cartItem: updatedCartItems,
       };
-
     case 'INCREMENT_QUANTITY':
       const productAdd = action.payload;
       console.log(productAdd);
@@ -95,6 +95,12 @@ const reducer = (state, action) => {
         ...state,
         comment: [...state.comment, text],
       };
+    case 'CARTTOTAL':
+      const total = action.payload
+      return {
+        ...state,
+        cartTotal:total
+      }
     case 'MESSAGEBUY':
       const message = action.payload;
       return {

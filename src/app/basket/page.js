@@ -18,10 +18,11 @@ import {
 } from '@/controller/products/ShowProducts';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
-  const { cartItem, userConnect, address, message } = state;
+  const { cartItem, userConnect, address, message, cartTotal } = state;
   const [warning, setWarning] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
+
   console.log(cartItem);
   const router = useRouter();
   const handelWarningProduct = (item) => {
@@ -65,6 +66,26 @@ function BasketPage() {
     }, 300);
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
+  const manyTotal = cartItem.reduce(
+    (a, c) =>
+      a +
+      Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) +
+      (Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) *
+        9) /
+        100,
+    0
+  );
+  const taxProduct = cartItem.reduce(
+    (a, c) =>
+      a +
+      (Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) *
+        9) /
+        100,
+    0
+  );
   useEffect(() => {
     const time = setTimeout(() => {
       dispatch({ type: 'MESSAGEBUY', payload: '' });
@@ -73,6 +94,9 @@ function BasketPage() {
       clearTimeout(time);
     };
   }, [message]);
+  useEffect(() => {
+    dispatch({ type: 'CARTTOTAL', payload: manyTotal });
+  }, [manyTotal]);
   return (
     <>
       <section
@@ -170,7 +194,7 @@ function BasketPage() {
                       )}
                     </div>
                     <div
-                      className=" w-[300px] h-[140px] p-4 rounded-lg 
+                      className=" w-[300px] h-[150px] p-5 rounded-lg 
                              flex  bg-gradient-to-br  justify-around flex-col 
                             shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] 
                             text-gray-500"
@@ -192,46 +216,13 @@ function BasketPage() {
                         </div>
                       </div>
                       <div className="flex justify-between ">
-                        <p>مالیات ارزش افزوده</p>
-                        <div>
-                          {cartItem.reduce(
-                            (a, c) =>
-                              a +
-                              (Number(
-                                c.quantity ? c.quantity : c.product_id.quantity
-                              ) *
-                                Number(
-                                  c.product_id ? c.product_id?.price : c.price
-                                ) *
-                                9) /
-                                100,
-                            0
-                          )}
-                        </div>
+                        <p>مالیات ارزش افزوده (%9)</p>
+                        <div>{taxProduct}</div>
                       </div>
+                      <hr className="text-red-500 !important m-2" />
                       <div className="flex justify-between ">
                         <p>جمع فاکتور</p>
-                        <div>
-                          {cartItem.reduce(
-                            (a, c) =>
-                              a +
-                              Number(
-                                c.quantity ? c.quantity : c.product_id.quantity
-                              ) *
-                                Number(
-                                  c.product_id ? c.product_id?.price : c.price
-                                ) +
-                              (Number(
-                                c.quantity ? c.quantity : c.product_id.quantity
-                              ) *
-                                Number(
-                                  c.product_id ? c.product_id?.price : c.price
-                                ) *
-                                9) /
-                                100,
-                            0
-                          )}
-                        </div>
+                        <div>{cartTotal}</div>
                       </div>
                       <div className="text-center py-2 px-4 mt-3">
                         {address[0] === null ? (
