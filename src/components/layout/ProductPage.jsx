@@ -4,25 +4,30 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import InfoProduct from './InfoProduct';
-import { basketDb} from '@/controller/basket/BasketDb';
-import {handeldesCountInStock} from '@/controller/products/ShowProducts'
+import { basketDb } from '@/controller/basket/BasketDb';
+import { handeldesCountInStock } from '@/controller/products/ShowProducts';
 import FadeLoader from 'react-spinners/FadeLoader';
 function ProductPage({ product }) {
-
   const [active, setActive] = useState(product?.img[0]);
   const { dispatch, state } = useContext(ContextStore);
   const { message, cartItem, userConnect } = state;
   const [loading, setLoading] = useState(false);
-    
+
   const handelAddProduct = async (product) => {
     const exist = cartItem.some((item) => item._id === product._id);
-    if (!exist) {
-      dispatch({ type: 'ADDITEM', payload: product });
-      dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
-      await basketDb({ product, userConnect });
-      await handeldesCountInStock(product._id)
-    } else {
-      dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
+    try {
+      if (!exist) {
+        dispatch({ type: 'ADDITEM', payload: product });
+        dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
+        setTimeout(async () => {
+          await basketDb({ product, userConnect });
+          await handeldesCountInStock(product._id);
+        });
+      } else {
+        dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
+      }
+    } catch (error) {
+      console.log(error, 'this a error at add product to basket');
     }
   };
   useEffect(() => {
@@ -33,12 +38,12 @@ function ProductPage({ product }) {
       clearTimeout(time);
     };
   }, [message]);
-    useEffect(() => {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 5000);
-    }, []);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, []);
   return (
     <>
       {loading ? (

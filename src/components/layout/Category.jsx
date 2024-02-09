@@ -28,7 +28,7 @@ function Category() {
                 <p className="text-center text-lg  "> {link.name}</p>
                 <span
                   className="border-[2px] border-y-primary  absolute top-0
-               w-28 h-28 rounded-full animate-spin "
+               w-28 h-28 rounded-full hover:animate-spin "
                 ></span>
               </button>
             </Link>

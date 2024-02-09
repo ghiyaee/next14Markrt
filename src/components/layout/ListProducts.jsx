@@ -20,7 +20,7 @@ async function ListProducts() {
         <div
           key={pro.id}
           className=" flex flex-col justify-between items-center gap-5 p-12 
-        hover:scale-105 duration-700 hover:bg-blue-800 hover:text-gray-50 rounded-lg 
+        hover:scale-105 duration-700 hover:bg-gradient-to-br   rounded-lg 
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "
         >
           <Image
