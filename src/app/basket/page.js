@@ -234,7 +234,7 @@ function BasketPage() {
                           </Link>
                         ) : (
                           <Link
-                            href={'/'}
+                            href={''}
                             className="bg-primary rounded-full text-gray-50 py-1 px-4"
                           >
                             نهایی کردن سفارش

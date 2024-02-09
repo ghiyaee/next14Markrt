@@ -5,7 +5,9 @@ const schemaBasket = new mongoose.Schema(
   {
     product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    quantity: { type: Number ,default:1},
+    quantity: { type: Number, default: 1 },
+    tax: { type: Number, default: 0 },
+    productTotal:{type:Number,default:0}
   },
   { timestamps: true }
 );
