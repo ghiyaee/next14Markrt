@@ -17,7 +17,7 @@ const reducer = (state, action) => {
       if (!login) {
         return {
           ...state,
-          userConnect: [...state.userConnect, user],
+          userConnect: [...state.userConnect, user]
         };
       }
     case 'USERLOGOUT':
@@ -25,6 +25,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         userConnect: userLogOut,
+        cartItem: userLogOut,
       };
     case 'ADDRESS':
       const address = action.payload;

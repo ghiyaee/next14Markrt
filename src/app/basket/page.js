@@ -18,11 +18,11 @@ import {
 } from '@/controller/products/ShowProducts';
 function BasketPage() {
   const { state, dispatch } = useContext(ContextStore);
-  const { cartItem, userConnect, address } = state;
+  const { cartItem, userConnect, address,message } = state;
   const [warning, setWarning] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
-
+  console.log(cartItem);
   const router = useRouter();
   const handelWarningProduct = (item) => {
     setSelectedItem(item);
@@ -37,25 +37,42 @@ function BasketPage() {
   const handelDeleteOk = async () => {
     setTimeout(async () => {
       await handelDeleteBasketProduct(selectedItem);
+      await handelIncCountInstock(selectedItem);
     }, 300);
     dispatch({ type: 'DELETEPRODUCT', payload: selectedItem });
     setWarning(false);
     setIsActive(true);
   };
   const handelCounterAdd = async (product) => {
-    setTimeout(async () => {
-      await handelAddUpdataBasket(product);
-      await handeldesCountInStock(product);
-    }, 300);
-    dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+    try {
+      setTimeout(async() => {
+       const { productStock } = await handeldesCountInStock(product);
+        if (productStock!==0) {
+          await handelAddUpdataBasket(product);
+          dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+        } else {
+          dispatch({type:'MESSAGEBUY',payload:'اتمام موجودی'})
+        }
+      },300)
+    } catch (error) {
+      console.log(error, 'this arror productStouck');
+    }
   };
   const handelCounterDes = (product) => {
     setTimeout(async () => {
       await handelDecUpdataBasket(product);
-      await handelIncCountInstock(product)
+      await handelIncCountInstock(product);
     }, 300);
     dispatch({ type: 'DECRIMENT_QUANTITY', payload: product });
   };
+   useEffect(() => {
+     const time = setTimeout(() => {
+       dispatch({ type: 'MESSAGEBUY', payload: '' });
+     }, 3000);
+     return () => {
+       clearTimeout(time);
+     };
+   }, [message]);
   return (
     <>
       <section
@@ -110,14 +127,19 @@ function BasketPage() {
                             </button>
                           </Link>
                           <p>{pro.quantity}</p>
-                          <Link href={``}>
-                            <button
-                              className="bg-primary text-white px-2  py-1 rounded-full"
-                              onClick={() => handelCounterDes(pro)}
-                            >
-                              <GrFormSubtract />
-                            </button>
-                          </Link>
+                          {pro.quantity > 1 ? (
+                            <Link href={``}>
+                              <button
+                                className="bg-primary text-white px-2  py-1 rounded-full"
+                                onClick={() => handelCounterDes(pro)}
+                              >
+                                <GrFormSubtract />
+                              </button>
+                            </Link>
+                          ) : (
+                            ''
+                          )}
+
                           <Link href={``}>
                             <button
                               className="bg-primary text-white  px-2  py-1 rounded-full"
@@ -131,6 +153,7 @@ function BasketPage() {
                     </div>
                   ))}
                 </div>
+                {message ? <p>{message}</p> : ''}
                 <div
                   className="w-[300px] p-2 rounded-lg 
               flex  justify-around bg-primary  shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] 

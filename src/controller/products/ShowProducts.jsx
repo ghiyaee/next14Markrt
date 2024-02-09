@@ -80,6 +80,9 @@ const handeldesCountInStock = async (id) => {
       { $inc: { countInStock: -1 } },
       { new: true }
     );
+     return{productStock:JSON.parse(JSON.stringify(product)) }
+  } else {
+    return({productStock:0})
   }
 };
 const handelIncCountInstock = async (id) => {
