@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" className="rtl-tag">
       <body
-        className={`${vazirFont.className} bg-gradient-to-tr from-yellow-300 to-transparent `}
+        className={`${vazirFont.className} bg-gradient-to-tr from-yellow-300  `}
       >
         <ContextStorProvider>
           <main className="max-w-screen min-h-screen m-auto p-4 gap-10 flex flex-col justify-between">

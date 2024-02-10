@@ -22,8 +22,6 @@ function BasketPage() {
   const [warning, setWarning] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
-
-  console.log(cartItem);
   const router = useRouter();
   const handelWarningProduct = (item) => {
     setSelectedItem(item);
@@ -219,7 +217,7 @@ function BasketPage() {
                         <p>مالیات ارزش افزوده (%9)</p>
                         <div>{taxProduct}</div>
                       </div>
-                      <hr className="text-red-500 !important m-2" />
+                      <div className="border-b-[2px] border-red-500 m-2"></div>
                       <div className="flex justify-between ">
                         <p>جمع فاکتور</p>
                         <div>{cartTotal}</div>
@@ -234,7 +232,7 @@ function BasketPage() {
                           </Link>
                         ) : (
                           <Link
-                            href={''}
+                            href={'/checkOut'}
                             className="bg-primary rounded-full text-gray-50 py-1 px-4"
                           >
                             نهایی کردن سفارش
