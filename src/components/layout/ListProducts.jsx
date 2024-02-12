@@ -4,12 +4,15 @@ import data from '../../../data';
 const dbConnect = require('@/dbConnect');
 const Product = require('@/models/products').default;
 import Link from 'next/link';
+import InfoBank from '@/models/infoBank';
 
 async function ListProducts() {
   await dbConnect();
   // await Product.deleteMany({})
   // await Product.insertMany(data.products)
   // await Comment.deleteMany({});
+  // await InfoBank.deleteMany({})
+  // await InfoBank.insertMany(data.infoBank)
   const products = await Product.find();
   return (
     <section

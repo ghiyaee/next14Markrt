@@ -21,6 +21,18 @@ const data = {
       isAdmin: true,
     },
   ],
+  infoBank: [
+    {
+      input1: 1111,
+      input2: 1111,
+      input3: 1111,
+      input4: 1111,
+      input5: 1111,
+      input6: 11,
+      input7: 11,
+      input8:111111
+    },
+  ],
   products: [
     {
       name: 'apple15',

@@ -1,8 +1,16 @@
 'use client';
-import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+import { ContextStore } from '@/context/contextStore';
+import bank from '@/controller/bank/Bank';
+import FadeLoader from 'react-spinners/FadeLoader';
+import { useRouter } from 'next/navigation';
 function CheckOut() {
+  const router=useRouter()
+  const { state } = useContext(ContextStore);
+  const { cartItem, userConnect } = state;
   const [isActive, setIsActive] = useState(false);
+  const [isCheck, setIsCheck] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     input1: '',
     input2: '',
@@ -13,6 +21,18 @@ function CheckOut() {
     input7: '',
     input8: '',
   });
+  const [cash, setCash] = useState();
+  const manyTotal = cartItem.reduce(
+    (a, c) =>
+      a +
+      Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) +
+      (Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) *
+        9) /
+        100,
+    0
+  );
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
@@ -42,110 +62,145 @@ function CheckOut() {
       setIsActive(true);
     }
   }, [inputs]);
-
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, [loading]);
   return (
-    <section className="flex justify-center items-center container flex-col m-auto gap-6 ">
-      <h3>این یک درگاه بانکی فیک است </h3>
-      <div className="flex flex-col gap-4 border-2 rounded-md border-red-400 p-4 items-center">
-        <div className="flex gap-5 items-center">
-          <p>شماره کارت</p>
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input4"
-            value={inputs.input4}
-            onChange={(e) => handelChange(e, input5Ref, 4)}
-            maxLength={4}
-            ref={input4Ref}
-          />
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input3"
-            value={inputs.input3}
-            onChange={(e) => handelChange(e, input4Ref, 4)}
-            maxLength={4}
-            ref={input3Ref}
-          />
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input2"
-            value={inputs.input2}
-            onChange={(e) => handelChange(e, input3Ref, 4)}
-            maxLength={4}
-            ref={input2Ref}
-          />
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input1"
-            value={inputs.input1}
-            onChange={(e) => handelChange(e, input2Ref, 4)}
-            maxLength={4}
-            ref={input1Ref}
-            autoFocus
-          />
+    <>
+      {loading ? (
+        <div className="flex justify-center items-center gap-5  text-2xl">
+          در حال پردازش ...
+          <FadeLoader color={'#f41d3e'} loading={loading} size={100} />
         </div>
-        <div className="flex gap-5">
-          <p>cvv2</p>
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input5"
-            value={inputs.input5}
-            onChange={(e) => handelChange(e, input6Ref, 4)}
-            maxLength={4}
-            ref={input5Ref}
-          />
-          <p>ماه</p>
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input6"
-            value={inputs.input6}
-            onChange={(e) => handelChange(e, input7Ref, 2)}
-            maxLength={2}
-            ref={input6Ref}
-          />
-          <p>سال</p>
-          <input
-            className="w-12 h-8 text-center"
-            type="text"
-            name="input7"
-            value={inputs.input7}
-            onChange={(e) => handelChange(e, input8Ref, 2)}
-            maxLength={2}
-            ref={input7Ref}
-          />
-        </div>
-        <div className="flex gap-20">
-          <button className="bg-primary text-gray-50 px-4 py-0 rounded-lg">
-            دریافت رمز دوم
-          </button>
-          <input
-            className="w-16 h-8 text-center"
-            type="password"
-            name="input8"
-            value={inputs.input8}
-            onChange={(e) => handelChange(e, input8Ref, 6)}
-            maxLength={6}
-            ref={input8Ref}
-            autoComplete="new-password"
-          />
-        </div>
-        <Link
-          href={'/'}
-          className={`bg-primary text-gray-50 px-20 py-2 rounded-lg ${
-            isActive
+      ) : (
+        <section
+          className={`${
+            isCheck
               ? 'pointer-events-auto opacity-100'
               : 'pointer-events-none opacity-70'
-          }`}
+          } flex justify-center items-center container flex-col m-auto gap-6 `}
         >
-          پرداخت نهایی
-        </Link>
-      </div>
-    </section>
+          <h3>این یک درگاه بانکی فیک است </h3>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+                setIsCheck(false);
+                setLoading(true)
+                setIsActive(false)
+              const { cash } = await bank({ inputs, manyTotal, userConnect });
+                setCash(cash);
+                 setTimeout(() => {
+                   if (cash === 'خرید شما با موفقیت انجام شد') {
+                     router.push('/');
+                   }
+                 }, 5000);
+            }}
+            className="flex flex-col gap-4 border-2 rounded-md border-red-400 p-4 items-center"
+          >
+            <div className="flex gap-5 items-center">
+              <p>شماره کارت</p>
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input4"
+                value={inputs.input4}
+                onChange={(e) => handelChange(e, input5Ref, 4)}
+                maxLength={4}
+                ref={input4Ref}
+              />
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input3"
+                value={inputs.input3}
+                onChange={(e) => handelChange(e, input4Ref, 4)}
+                maxLength={4}
+                ref={input3Ref}
+              />
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input2"
+                value={inputs.input2}
+                onChange={(e) => handelChange(e, input3Ref, 4)}
+                maxLength={4}
+                ref={input2Ref}
+              />
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input1"
+                value={inputs.input1}
+                onChange={(e) => handelChange(e, input2Ref, 4)}
+                maxLength={4}
+                ref={input1Ref}
+                autoFocus
+              />
+            </div>
+            <div className="flex gap-5 items-center">
+              <p>cvv2</p>
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input5"
+                value={inputs.input5}
+                onChange={(e) => handelChange(e, input6Ref, 4)}
+                maxLength={4}
+                ref={input5Ref}
+              />
+              <p>ماه</p>
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input6"
+                value={inputs.input6}
+                onChange={(e) => handelChange(e, input7Ref, 2)}
+                maxLength={2}
+                ref={input6Ref}
+              />
+              <p>سال</p>
+              <input
+                className="w-12 h-8 text-center"
+                type="text"
+                name="input7"
+                value={inputs.input7}
+                onChange={(e) => handelChange(e, input8Ref, 2)}
+                maxLength={2}
+                ref={input7Ref}
+              />
+            </div>
+            <div className="flex gap-20">
+              <span className="bg-primary text-gray-50 px-4 py-0 rounded-lg">
+                دریافت رمز دوم
+              </span>
+              <input
+                className="w-16 h-8 text-center"
+                type="password"
+                name="input8"
+                value={inputs.input8}
+                onChange={(e) => handelChange(e, input8Ref, 6)}
+                maxLength={6}
+                ref={input8Ref}
+                autoComplete="new-password"
+              />
+            </div>
+            <p>مبلغ قابل پرداخت (ریال) : {manyTotal}</p>
+            <button
+              className={`bg-primary text-gray-50 px-10 py-2 rounded-lg ${
+                isActive
+                  ? 'pointer-events-auto opacity-100'
+                  : 'pointer-events-none opacity-70'
+              }`}
+            >
+              پرداخت نهایی
+            </button>
+            <p>{cash}</p>
+          </form>
+        </section>
+      )}
+    </>
   );
 }
 
