@@ -23,6 +23,7 @@ function BasketPage() {
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const router = useRouter();
+  console.log(cartItem);
   const handelWarningProduct = (item) => {
     setSelectedItem(item);
     setWarning(true);

@@ -17,5 +17,6 @@ const infoBankSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+mongoose.models = {};
 const InfoBank = mongoose.model('InfoBank', infoBankSchema);
 export default InfoBank

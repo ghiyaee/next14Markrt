@@ -57,10 +57,22 @@ const handelDeleteBasketProduct = async (product) => {
     console.log(error, 'ERROR DELETE FROM BASKETDB');
   }
 };
+const handelUpdateBasket = async (cartItem, tax, productTotal) => {
+  const id =
+    cartItem.length === 1 ? cartItem[0]._id : cartItem[0]?.product_id?.id;
+  const product = await BasketDb.findOne({
+    product_id: id,
+  });
+  product.tax = tax;
+  product.productTotal = productTotal;
+  await product.save();
+};
+
 export {
   basketDb,
   handelBasketDb,
   handelAddUpdataBasket,
   handelDeleteBasketProduct,
   handelDecUpdataBasket,
+  handelUpdateBasket,
 };

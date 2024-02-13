@@ -15,10 +15,10 @@ const bank = async (data) => {
       newDate.cash -= manyTotal
       newDate.user_id = userConnect[0]._id
       await newDate.save()
-     return{cash:'خرید شما با موفقیت انجام شد'}
+     return { msgOk: 'پرداخت با موافقیت انجام شد',cash:true };
     }
     if (newDate.cash < manyTotal) {
-        return { cash: 'متاسفانه کسر موجودی دارید' };
+        return { msgNot: 'متاسقانه کسرموجودی دارید',cash:false };
     }
 };
 export default bank;

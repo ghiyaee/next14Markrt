@@ -72,9 +72,9 @@ const reducer = (state, action) => {
             ...state.cartItem.map((item) =>
               item._id === product._id
                 ? {
-                    ...item,
-                    quantity: item.quantity > 1 ? item.quantity - 1 : 1,
-                  }
+                  ...item,
+                  quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+                }
                 : item
             ),
           ],
@@ -99,14 +99,20 @@ const reducer = (state, action) => {
       const total = action.payload
       return {
         ...state,
-        cartTotal:total
+        cartTotal: total
       }
     case 'MESSAGEBUY':
-      const message = action.payload;
+        const message = action.payload;
       return {
         ...state,
         message: message,
       };
+    case 'RESTCARTITEM': 
+      return {
+        ...state,
+        cartItem:action.payload
+           }
+    
     default:
       return state;
   }

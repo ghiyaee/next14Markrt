@@ -4,9 +4,10 @@ import { ContextStore } from '@/context/contextStore';
 import bank from '@/controller/bank/Bank';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useRouter } from 'next/navigation';
+import { handelUpdateBasket } from '@/controller/basket/BasketDb';
 function CheckOut() {
-  const router=useRouter()
-  const { state } = useContext(ContextStore);
+  const router = useRouter();
+  const { state, dispatch } = useContext(ContextStore);
   const { cartItem, userConnect } = state;
   const [isActive, setIsActive] = useState(false);
   const [isCheck, setIsCheck] = useState(true);
@@ -21,7 +22,12 @@ function CheckOut() {
     input7: '',
     input8: '',
   });
-  const [cash, setCash] = useState();
+  const [bankData, setBankData] = useState({
+    cash: false,
+    msgOk: '',
+    msgNot: '',
+  });
+  const { cash, msgOk, msgNot } = bankData;
   const manyTotal = cartItem.reduce(
     (a, c) =>
       a +
@@ -33,6 +39,23 @@ function CheckOut() {
         100,
     0
   );
+  const productTotal = cartItem.reduce(
+    (a, c) =>
+      a +
+      Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price),
+    0
+  );
+  const tax = cartItem.reduce(
+    (a, c) =>
+      a +
+      (Number(c.quantity ? c.quantity : c.product_id.quantity) *
+        Number(c.product_id ? c.product_id?.price : c.price) *
+        9) /
+        100,
+    0
+  );
+  console.log(cartItem);
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
@@ -41,6 +64,7 @@ function CheckOut() {
   const input6Ref = useRef(null);
   const input7Ref = useRef(null);
   const input8Ref = useRef(null);
+
   const handelChange = (e, nextRef, maxLength) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
@@ -86,16 +110,26 @@ function CheckOut() {
           <form
             onSubmit={async (e) => {
               e.preventDefault();
-                setIsCheck(false);
-                setLoading(true)
-                setIsActive(false)
-              const { cash } = await bank({ inputs, manyTotal, userConnect });
-                setCash(cash);
-                 setTimeout(() => {
-                   if (cash === 'خرید شما با موفقیت انجام شد') {
-                     router.push('/');
-                   }
-                 }, 5000);
+              setIsCheck(false);
+              setLoading(true);
+              setIsActive(false);
+              const { cash, msgOk, msgNot } = await bank({
+                inputs,
+                manyTotal,
+                userConnect,
+              });
+              setBankData({ cash, msgOk, msgNot });
+              if (cash) {
+                await handelUpdateBasket(cartItem, tax, productTotal);
+                setTimeout(async () => {
+                  dispatch({ type: 'RESTCARTITEM', payload: [] });
+                  router.push('/');
+                }, 5000);
+              } else {
+                setTimeout(async () => {
+                  router.push('/basket');
+                }, 5000);
+              }
             }}
             className="flex flex-col gap-4 border-2 rounded-md border-red-400 p-4 items-center"
           >
@@ -196,7 +230,7 @@ function CheckOut() {
             >
               پرداخت نهایی
             </button>
-            <p>{cash}</p>
+            <p>{cash ? msgOk : msgNot}</p>
           </form>
         </section>
       )}
