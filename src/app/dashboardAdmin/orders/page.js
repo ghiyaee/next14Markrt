@@ -3,8 +3,9 @@ import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '@/context/contextStore';
 import Image from 'next/image';
 import moment from 'jalali-moment';
-import DashbordAdmin  from '@/components/layout/DashbordAdmin'
-import { handleOrders } from '@/controller/orders/Oreders';
+import DashbordAdmin from '@/components/layout/DashbordAdmin';
+import { handleOrders, handleSendOrder } from '@/controller/orders/Oreders';
+
 export default function Orders() {
   const { state } = useContext(ContextStore);
   const [orders, setOrders] = useState();
@@ -16,7 +17,7 @@ export default function Orders() {
       setOrders(orders);
     };
     fechtData();
-  }, []);
+  }, [orders]);
   console.log(orders);
   return (
     <main className="flex">
@@ -53,7 +54,15 @@ export default function Orders() {
                 <p className="w-28 text-center">
                   {order.product_id ? order.product_id?.name : order.name}
                 </p>
-                <button className="bg-primary text-gray-50 p-2">
+                <button
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await handleSendOrder(order._id);
+                    const { orders } = await handleOrders();
+                    setOrders(orders);
+                     }}
+                  className="bg-primary text-gray-50 p-2"
+                >
                   وضعیت : {order.sending ? 'ارسال شد' : 'منتظرارسال'}
                 </button>
               </div>
