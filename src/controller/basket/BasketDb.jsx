@@ -57,15 +57,25 @@ const handelDeleteBasketProduct = async (product) => {
     console.log(error, 'ERROR DELETE FROM BASKETDB');
   }
 };
-const handelUpdateBasket = async (cartItem, tax, productTotal) => {
-  const id =
-    cartItem.length === 1 ? cartItem[0]._id : cartItem[0]?.product_id?.id;
-  const product = await BasketDb.findOne({
-    product_id: id,
-  });
-  product.tax = tax;
-  product.productTotal = productTotal;
-  await product.save();
+const handleUpdateBasket = async (cartItem, tax, productTotal) => {
+  let id;
+  if (cartItem.length === 1 && cartItem[0]?.product_id?._id) {
+    id = cartItem[0].product_id._id;
+  } else if (cartItem.length === 1) {
+    id = cartItem[0]._id;
+  } else {
+    console.error('ID not found for cartItem', cartItem);
+    return;
+  }
+  const product = await BasketDb.findOne({ product_id: id });
+  if (product) {
+    product.tax = tax;
+    product.productTotal = productTotal;
+    product.stauts = true;
+    await product.save();
+  } else {
+    console.error('Product not found for ID:', id);
+  }
 };
 
 export {
@@ -74,5 +84,5 @@ export {
   handelAddUpdataBasket,
   handelDeleteBasketProduct,
   handelDecUpdataBasket,
-  handelUpdateBasket,
+  handleUpdateBasket,
 };

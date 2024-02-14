@@ -7,7 +7,10 @@ const schemaBasket = new mongoose.Schema(
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     quantity: { type: Number, default: 1 },
     tax: { type: Number, default: 0 },
-    productTotal:{type:Number,default:0}
+    productTotal: { type: Number, default: 0 },
+    stauts: { type: Boolean, default: false },
+    orderData: { type: Date, default: Date.now },
+    sending:{type:Boolean,default:false}
   },
   { timestamps: true }
 );

@@ -4,7 +4,7 @@ import { ContextStore } from '@/context/contextStore';
 import bank from '@/controller/bank/Bank';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useRouter } from 'next/navigation';
-import { handelUpdateBasket } from '@/controller/basket/BasketDb';
+import { handleUpdateBasket } from '@/controller/basket/BasketDb';
 function CheckOut() {
   const router = useRouter();
   const { state, dispatch } = useContext(ContextStore);
@@ -55,7 +55,7 @@ function CheckOut() {
         100,
     0
   );
-  console.log(cartItem);
+  console.log(cartItem.length === 1 && cartItem[0]?.product_id?._id);
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
@@ -120,10 +120,10 @@ function CheckOut() {
               });
               setBankData({ cash, msgOk, msgNot });
               if (cash) {
-                await handelUpdateBasket(cartItem, tax, productTotal);
+                await handleUpdateBasket(cartItem, tax, productTotal);
                 setTimeout(async () => {
                   dispatch({ type: 'RESTCARTITEM', payload: [] });
-                  router.push('/');
+                  router.push('/dashboardUser/orders');
                 }, 5000);
               } else {
                 setTimeout(async () => {

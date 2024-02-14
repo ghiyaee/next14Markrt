@@ -8,9 +8,9 @@ async function handelLogin(data) {
   try {
     const checkEmail = await User.findOne({ email: data.email });
     const checkBasketDb = await BasketDb.find({
-      user_id: checkEmail._id,
+      $and: [{ user_id: checkEmail._id }, { stauts: false }],
     }).populate(['user_id', 'product_id']);
-     const checkAddress = await Address.findOne({ user_id: checkEmail._id });
+    const checkAddress = await Address.findOne({ user_id: checkEmail._id });
     const password = await bcrypt.compare(data.password, checkEmail.password);
     if (checkEmail.email === data.email && password) {
       return {
