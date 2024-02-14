@@ -16,10 +16,7 @@ function DashbordAdmin() {
           </div>
           <h2 className="text-xl text-gray-600 ">داشبورد مدیر</h2>
           <div className="flex flex-col gap-1  text-xl p-0 overflow-y-auto h-[700px]">
-            <Link
-              href={'/dashboardAdmin/products'}
-              className="style-button"
-            >
+            <Link href={'/dashboardAdmin/products'} className="style-button">
               محصولات
             </Link>
             <Link
@@ -28,7 +25,9 @@ function DashbordAdmin() {
             >
               ثبت محصول
             </Link>
-            <button className="style-button  ">سفارشات</button>
+            <Link href={'/dashboardAdmin/orders'} className="style-button  ">
+              سفارشات
+            </Link>
             <button className="style-button ">کاربران</button>
             <Link href={'/dashboardAdmin/comments'} className="style-button  ">
               نظرات کاربران
