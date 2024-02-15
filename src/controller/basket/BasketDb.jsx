@@ -63,18 +63,31 @@ const handleUpdateBasket = async (cartItem, tax, productTotal) => {
     id = cartItem[0].product_id._id;
   } else if (cartItem.length === 1) {
     id = cartItem[0]._id;
-  } else {
-    console.error('ID not found for cartItem', cartItem);
-    return;
-  }
-  const product = await BasketDb.findOne({ product_id: id });
-  if (product) {
-    product.tax = tax;
-    product.productTotal = productTotal;
-    product.stauts = true;
-    await product.save();
-  } else {
-    console.error('Product not found for ID:', id);
+  } else if (cartItem.length > 1) {
+    id = cartItem.map((id) => id._id);
+    const query = { product_id: { $in: id } };
+    const products = await BasketDb.updateMany(query, {
+      $set: { tax: tax, productTotal: productTotal, status: true },
+    });
+    if (products) {
+      console.log(products);
+      // products.tax = tax;
+      // products.productTotal = productTotal;
+      // products.status = true;
+      // await products.save();
+    } else {
+      console.error('ID not found for cartItem', cartItem);
+      return;
+    }
+    const product = await BasketDb.findOne({ product_id: id });
+    if (product) {
+      product.tax = tax;
+      product.productTotal = productTotal;
+      product.status = true;
+      await product.save();
+    } else {
+      console.error('Product not found for ID:', id);
+    }
   }
 };
 
@@ -86,3 +99,34 @@ export {
   handelDecUpdataBasket,
   handleUpdateBasket,
 };
+
+// const handleUpdateBasket = async (cartItem, tax, productTotal) => {
+//   if (!Array.isArray(cartItem) || cartItem.length === 0) {
+//     console.error('cartItems is empty or not an array');
+//     return;
+//   }
+//   for (const item of cartItem) {
+//     let id;
+//     if (item.product_id?._id) {
+//       id = item.product_id._id;
+//     } else if (item._id) {
+//       id = item._id;
+//     } else {
+//       console.error('ID not found for cartItem', item);
+//       continue;
+//     }
+//     try {
+//       const product = await BasketDb.findOne({ product_id: id });
+//       if (product) {
+//         product.tax = tax;
+//         product.productTotal = productTotal;
+//         product.status = true;
+//         await product.save();
+//       } else {
+//         console.error('Product not found for ID:', id);
+//       }
+//     } catch (err) {
+//       console.error('Error updating product for ID:', id, err);
+//     }
+//   }
+// };

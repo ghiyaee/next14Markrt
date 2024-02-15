@@ -2,9 +2,8 @@
 import BasketDb from '@/models/basketDb';
 const handleOrder = async (id) => {
   const order = await BasketDb.find({
-    $and: [{ user_id: id }, { stauts: true }],
+    $and: [{ user_id: id }, { status: true }],
   }).populate(['user_id', 'product_id']);
-  console.log(order);
   return { order: JSON.parse(JSON.stringify(order)) };
 };
 const handleOrders = async () => {

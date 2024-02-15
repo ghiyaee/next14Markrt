@@ -10,7 +10,6 @@ export default function Orders() {
   const { state } = useContext(ContextStore);
   const [orders, setOrders] = useState();
   const { userConnect } = state;
-  console.log(userConnect);
   useEffect(() => {
     const fechtData = async () => {
       const { orders } = await handleOrders();
@@ -35,13 +34,14 @@ export default function Orders() {
                 className="flex gap-8  p-2 items-center border "
               >
                 <p>{idx + 1}</p>
+                <p>نام کاربر : {order.user_id.name}</p>
                 <p className="">
                   تاریخ و ساعت سفارش :
                   {moment(order.orderData)
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-                <p className="w-48">کد سفارش : {order._id}</p>
+                <p className="w-52">کد سفارش : {order.counter}</p>
                 <Image
                   width={40}
                   height={40}
@@ -51,8 +51,9 @@ export default function Orders() {
                   }
                   priority={true}
                 />
-                <p className="w-28 text-center">
-                  {order.product_id ? order.product_id?.name : order.name}
+                <p>تعداد : {order.quantity}</p>
+                <p className="w-36 text-center">
+                  مدل : {order.product_id ? order.product_id?.name : order.name}
                 </p>
                 <button
                   onClick={async (e) => {
@@ -60,8 +61,12 @@ export default function Orders() {
                     await handleSendOrder(order._id);
                     const { orders } = await handleOrders();
                     setOrders(orders);
-                     }}
-                  className="bg-primary text-gray-50 p-2"
+                  }}
+                  className={`${
+                    order.sending
+                      ? 'bg-green-500 text-gray-50 p-2 pointer-events-none opacity-70'
+                      : 'bg-primary  text-gray-50 p-2 pointer-events-auto opacity-100'
+                  }`}
                 >
                   وضعیت : {order.sending ? 'ارسال شد' : 'منتظرارسال'}
                 </button>
@@ -69,7 +74,7 @@ export default function Orders() {
             ))}
           </>
         ) : (
-          <p>شما سفارش ثبت شده ای ندارید</p>
+          <p>شفارشی ثبت نشده</p>
         )}
       </div>
     </main>

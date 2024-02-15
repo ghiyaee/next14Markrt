@@ -8,9 +8,10 @@ const schemaBasket = new mongoose.Schema(
     quantity: { type: Number, default: 1 },
     tax: { type: Number, default: 0 },
     productTotal: { type: Number, default: 0 },
-    stauts: { type: Boolean, default: false },
+    status: { type: Boolean, default: false },
     orderData: { type: Date, default: Date.now },
-    sending:{type:Boolean,default:false}
+    sending: { type: Boolean, default: false },
+    counter: { type: Number, default: 1402000, sequence: true },
   },
   { timestamps: true }
 );

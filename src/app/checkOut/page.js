@@ -55,8 +55,7 @@ function CheckOut() {
         100,
     0
   );
-  console.log(cartItem.length === 1 && cartItem[0]?.product_id?._id);
-  const input1Ref = useRef(null);
+   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
   const input3Ref = useRef(null);
   const input4Ref = useRef(null);
