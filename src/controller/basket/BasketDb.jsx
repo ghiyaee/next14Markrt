@@ -58,39 +58,41 @@ const handelDeleteBasketProduct = async (product) => {
   }
 };
 const handleUpdateBasket = async (cartItem, tax, productTotal) => {
+  console.log(cartItem);
   let id;
   if (cartItem.length === 1 && cartItem[0]?.product_id?._id) {
     id = cartItem[0].product_id._id;
+    console.log(id,'1');
   } else if (cartItem.length === 1) {
     id = cartItem[0]._id;
+    console.log(id,'2');
   } else if (cartItem.length > 1) {
-    id = cartItem.map((id) => id._id);
-    const query = { product_id: { $in: id } };
-    const products = await BasketDb.updateMany(query, {
+    // id = cartItem.map((id) => id._id);
+    // const query = { product_id: { $in: id } };
+    const ids = cartItem
+      .map((item) => (item.product_id ? item.product_id._id : item._id))
+      .reduce((acc, id) => acc.concat(id), []);
+    console.log(ids,'3');
+    const query = { product_id: { $in: ids } };
+    await BasketDb.updateMany(query, {
       $set: { tax: tax, productTotal: productTotal, status: true },
     });
-    if (products) {
-      console.log(products);
-      // products.tax = tax;
-      // products.productTotal = productTotal;
-      // products.status = true;
-      // await products.save();
-    } else {
-      console.error('ID not found for cartItem', cartItem);
-      return;
-    }
-    const product = await BasketDb.findOne({ product_id: id });
-    if (product) {
-      product.tax = tax;
-      product.productTotal = productTotal;
-      product.status = true;
-      await product.save();
-    } else {
-      console.error('Product not found for ID:', id);
-    }
+  } else {
+    console.error('ID not found for cartItem', cartItem);
+    return;
+  }
+  const product = await BasketDb.findOne({ product_id: id });
+  console.log(product);
+  if (product) {
+    product.tax = tax;
+    product.productTotal = productTotal;
+    product.status = true;
+    await product.save();
+      console.log(product);
+  } else {
+    console.error('Product not found for ID:', id);
   }
 };
-
 export {
   basketDb,
   handelBasketDb,

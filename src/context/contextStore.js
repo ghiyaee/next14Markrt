@@ -4,7 +4,6 @@ const ContextStore = createContext();
 const initailState = {
   userConnect: [],
   cartItem: [],
-  localData: [],
   message: '',
   comment: [],
   address: [],

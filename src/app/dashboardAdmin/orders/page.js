@@ -41,7 +41,7 @@ export default function Orders() {
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-                <p className="w-52">کد سفارش : {order.counter}</p>
+                <p className="">کد سفارش : {order._id.slice(-6)}</p>
                 <Image
                   width={40}
                   height={40}
@@ -52,24 +52,26 @@ export default function Orders() {
                   priority={true}
                 />
                 <p>تعداد : {order.quantity}</p>
-                <p className="w-36 text-center">
+                <p className=" text-center">
                   مدل : {order.product_id ? order.product_id?.name : order.name}
                 </p>
-                <button
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    await handleSendOrder(order._id);
-                    const { orders } = await handleOrders();
-                    setOrders(orders);
-                  }}
-                  className={`${
-                    order.sending
-                      ? 'bg-green-500 text-gray-50 p-2 pointer-events-none opacity-70'
-                      : 'bg-primary  text-gray-50 p-2 pointer-events-auto opacity-100'
-                  }`}
-                >
-                  وضعیت : {order.sending ? 'ارسال شد' : 'منتظرارسال'}
-                </button>
+                <div>
+                  <button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await handleSendOrder(order._id);
+                      const { orders } = await handleOrders();
+                      setOrders(orders);
+                    }}
+                    className={`${
+                      order.sending
+                        ? 'bg-green-500 text-gray-50 p-2 pointer-events-none opacity-70'
+                        : 'bg-primary  text-gray-50 p-2 pointer-events-auto opacity-100'
+                    }`}
+                  >
+                    وضعیت : {order.sending ? 'ارسال شد' : 'منتظرارسال'}
+                  </button>
+                </div>
               </div>
             ))}
           </>

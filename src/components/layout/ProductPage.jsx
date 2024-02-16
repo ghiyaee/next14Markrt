@@ -12,7 +12,7 @@ function ProductPage({ product }) {
   const { dispatch, state } = useContext(ContextStore);
   const { message, cartItem, userConnect } = state;
   const [loading, setLoading] = useState(false);
-
+  console.log('add product to cartItem ',cartItem);
   const handelAddProduct = async (product) => {
     const exist = cartItem.some((item) => item._id === product._id);
     try {
@@ -42,7 +42,7 @@ function ProductPage({ product }) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 2000);
   }, []);
   return (
     <>
@@ -53,18 +53,17 @@ function ProductPage({ product }) {
         </div>
       ) : (
         <>
-          {' '}
-          <section
+            <section
             className="flex flex-col 
-        justify-center items-center flex-wrap 
-       gap-10 mt-8 transition-all duration-[2000s]"
+             justify-center items-center flex-wrap 
+              gap-10 mt-8 transition-all duration-[2000s]"
           >
             <div
               className="w-[300px] md:w-[500px] h-[500px] flex 
-          flex-col  justify-center 
-          items-center gap-10 p-4 
-           rounded-lg 
-          shadow-[0_25px_45px_-24px_rgb(0,0,0,0.7)]  "
+                flex-col  justify-center 
+                 items-center gap-10 p-4 
+                 rounded-lg 
+                 shadow-[0_25px_45px_-24px_rgb(0,0,0,0.7)]  "
             >
               <div className="relative w-[400px] h-[350px]">
                 <Image
@@ -99,12 +98,11 @@ function ProductPage({ product }) {
                     اتمام موجودی
                   </div>
                 )}
-
                 <p
                   className={`${
                     state.message ? 'block' : 'hidden'
                   }  transition-all duration-1000 bg-green-500 mt-2 text-white
-             px-6 py-1 rounded-full `}
+                    px-6 py-1 rounded-full `}
                 >
                   {state.message}
                 </p>

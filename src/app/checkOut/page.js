@@ -5,6 +5,7 @@ import bank from '@/controller/bank/Bank';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useRouter } from 'next/navigation';
 import { handleUpdateBasket } from '@/controller/basket/BasketDb';
+import { logging } from '../../../next.config';
 function CheckOut() {
   const router = useRouter();
   const { state, dispatch } = useContext(ContextStore);
@@ -90,6 +91,7 @@ function CheckOut() {
       setLoading(false);
     }, 3000);
   }, [loading]);
+  console.log(cartItem);
   return (
     <>
       {loading ? (

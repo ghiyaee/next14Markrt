@@ -23,7 +23,7 @@ function BasketPage() {
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const router = useRouter();
-  console.log(cartItem);
+  console.log('add prodcut to basket context', cartItem);
   const handelWarningProduct = (item) => {
     setSelectedItem(item);
     setWarning(true);

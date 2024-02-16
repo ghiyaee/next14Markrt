@@ -1,7 +1,7 @@
 'use client';
 import DashbordAdmin from '@/components/layout/DashbordAdmin';
 import {
-  handelAllProducts,
+  handleAllProducts,
   hamdelDeleteProduct,
 } from '@/controller/products/ShowProducts';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ function ProductsPage() {
   useEffect(() => {
     const fetachData = async () => {
       try {
-        const { products } = await handelAllProducts();
+        const { products } = await handleAllProducts();
         setProducts(products);
       } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ function ProductsPage() {
        bg-gradient-to-tr from-yellow-300 to-transparent"
       >
         <h2 className="py-2">لیست محصولات</h2>
-        {products.map((product) => (
+        {products?.map((product) => (
           <div
             key={product._id}
             className="flex 

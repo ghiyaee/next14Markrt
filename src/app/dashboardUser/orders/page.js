@@ -40,8 +40,7 @@ export default function Orders() {
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-
-                <p className="w-56">کد سفارش : {order.counter}</p>
+                <p className="w-56">کد سفارش : {order._id}</p>
                 <Image
                   width={40}
                   height={40}

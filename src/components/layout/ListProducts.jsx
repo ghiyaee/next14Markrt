@@ -2,18 +2,20 @@ import React from 'react';
 import Image from 'next/image';
 import data from '../../../data';
 const dbConnect = require('@/dbConnect');
-const Product = require('@/models/products').default;
+import {handleAllProducts} from '@/controller/products/ShowProducts'
 import Link from 'next/link';
-import InfoBank from '@/models/infoBank';
-
 async function ListProducts() {
-  await dbConnect();
   // await Product.deleteMany({})
   // await Product.insertMany(data.products)
   // await Comment.deleteMany({});
   // await InfoBank.deleteMany({})
   // await InfoBank.insertMany(data.infoBank)
-  const products = await Product.find();
+  try {
+    await dbConnect();
+  } catch (error) {
+    console.log(error);
+  }
+  let { products } = await handleAllProducts()
   return (
     <section
       className="flex  md:flex-row 
@@ -21,7 +23,7 @@ async function ListProducts() {
     >
       {products?.map((pro) => (
         <div
-          key={pro.id}
+          key={pro._id}
           className=" flex flex-col justify-between items-center gap-5 p-12 
         hover:scale-105 duration-700 hover:bg-gradient-to-br   rounded-lg 
         shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)] "

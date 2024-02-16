@@ -1,6 +1,6 @@
 'use server';
 import Product from '@/models/products';
-const handelAllProducts = async () => {
+const handleAllProducts = async () => {
   try {
     const products = await Product.find();
     return { products: JSON.parse(JSON.stringify(products)) };
@@ -93,7 +93,7 @@ const handelIncCountInstock = async (id) => {
   );
 };
 export {
-  handelAllProducts,
+  handleAllProducts,
   handelProduct,
   handelEditProduct,
   handelNewProduct,

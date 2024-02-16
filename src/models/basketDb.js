@@ -11,7 +11,6 @@ const schemaBasket = new mongoose.Schema(
     status: { type: Boolean, default: false },
     orderData: { type: Date, default: Date.now },
     sending: { type: Boolean, default: false },
-    counter: { type: Number, default: 1402000, sequence: true },
   },
   { timestamps: true }
 );
