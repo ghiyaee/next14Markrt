@@ -24,7 +24,7 @@ function DashboardUser() {
               href={'/dashboardUser/editAddress'}
               className="style-button "
             >
-              ویرایش آدرش
+              ویرایش آدرس
             </Link>
             
             <Link href={'/dashboardUser/comments'} className="style-button  ">

@@ -117,11 +117,3 @@ function AddressUser() {
 }
 
 export default AddressUser;
-
-// if (isNaN(codePost) || isNaN(tell) || isNaN(mobile)) {
-//   setMessage('تمام مقادیرباید واردشوند');
-//   setTimeout(() => {
-//     setMessage('');
-//   }, 2000);
-//   return;
-// }

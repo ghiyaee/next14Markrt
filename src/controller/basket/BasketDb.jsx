@@ -58,21 +58,15 @@ const handelDeleteBasketProduct = async (product) => {
   }
 };
 const handleUpdateBasket = async (cartItem, tax, productTotal) => {
-  console.log(cartItem);
   let id;
   if (cartItem.length === 1 && cartItem[0]?.product_id?._id) {
     id = cartItem[0].product_id._id;
-    console.log(id,'1');
   } else if (cartItem.length === 1) {
     id = cartItem[0]._id;
-    console.log(id,'2');
   } else if (cartItem.length > 1) {
-    // id = cartItem.map((id) => id._id);
-    // const query = { product_id: { $in: id } };
     const ids = cartItem
       .map((item) => (item.product_id ? item.product_id._id : item._id))
       .reduce((acc, id) => acc.concat(id), []);
-    console.log(ids,'3');
     const query = { product_id: { $in: ids } };
     await BasketDb.updateMany(query, {
       $set: { tax: tax, productTotal: productTotal, status: true },
@@ -81,17 +75,10 @@ const handleUpdateBasket = async (cartItem, tax, productTotal) => {
     console.error('ID not found for cartItem', cartItem);
     return;
   }
-  const product = await BasketDb.findOne({ product_id: id });
-  console.log(product);
-  if (product) {
-    product.tax = tax;
-    product.productTotal = productTotal;
-    product.status = true;
-    await product.save();
-      console.log(product);
-  } else {
-    console.error('Product not found for ID:', id);
-  }
+  const product = await BasketDb.findOneAndUpdate(
+    { product_id: id },
+    { tax: tax, productTotal: productTotal, status: true }
+  );
 };
 export {
   basketDb,
@@ -101,34 +88,3 @@ export {
   handelDecUpdataBasket,
   handleUpdateBasket,
 };
-
-// const handleUpdateBasket = async (cartItem, tax, productTotal) => {
-//   if (!Array.isArray(cartItem) || cartItem.length === 0) {
-//     console.error('cartItems is empty or not an array');
-//     return;
-//   }
-//   for (const item of cartItem) {
-//     let id;
-//     if (item.product_id?._id) {
-//       id = item.product_id._id;
-//     } else if (item._id) {
-//       id = item._id;
-//     } else {
-//       console.error('ID not found for cartItem', item);
-//       continue;
-//     }
-//     try {
-//       const product = await BasketDb.findOne({ product_id: id });
-//       if (product) {
-//         product.tax = tax;
-//         product.productTotal = productTotal;
-//         product.status = true;
-//         await product.save();
-//       } else {
-//         console.error('Product not found for ID:', id);
-//       }
-//     } catch (err) {
-//       console.error('Error updating product for ID:', id, err);
-//     }
-//   }
-// };

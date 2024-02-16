@@ -31,7 +31,9 @@ export default function Orders() {
             {orders?.map((order, idx) => (
               <div
                 key={order._id}
-                className="flex gap-4 p-2 items-center border "
+                className="flex gap-4 p-2 items-center border
+                 hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
+                  hover:border-x-2 h-12  "
               >
                 <p>{idx + 1}</p>
                 <p className="">
@@ -40,7 +42,7 @@ export default function Orders() {
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-                <p className="w-56">کد سفارش : {order._id}</p>
+                <p className="w-36">کد سفارش : {order._id.slice(-6)}</p>
                 <Image
                   width={40}
                   height={40}

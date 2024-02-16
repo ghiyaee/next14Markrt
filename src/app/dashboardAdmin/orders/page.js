@@ -31,7 +31,9 @@ export default function Orders() {
             {orders?.map((order, idx) => (
               <div
                 key={order._id}
-                className="flex gap-8  p-2 items-center border "
+                className="flex gap-8  p-2 items-center border 
+                 hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
+                  hover:border-x-2 h-12 "
               >
                 <p>{idx + 1}</p>
                 <p>نام کاربر : {order.user_id.name}</p>
@@ -52,10 +54,10 @@ export default function Orders() {
                   priority={true}
                 />
                 <p>تعداد : {order.quantity}</p>
-                <p className=" text-center">
+                <p className="w-36 text-center">
                   مدل : {order.product_id ? order.product_id?.name : order.name}
                 </p>
-                <div>
+                <div className="w-42">
                   <button
                     onClick={async (e) => {
                       e.preventDefault();
