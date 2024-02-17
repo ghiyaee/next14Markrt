@@ -10,12 +10,13 @@ async function handelLogin(data) {
     const checkBasketDb = await BasketDb.find({
       $and: [{ user_id: checkEmail._id }, { status: false }],
     }).populate(['user_id', 'product_id']);
-    const checkAddress = await Address.findOne({ user_id: checkEmail._id });
+    // const checkAddress = await Address.findOne({ user_id: checkEmail._id });
+    // console.log(checkAddress);
     const password = await bcrypt.compare(data.password, checkEmail.password);
     if (checkEmail.email === data.email && password) {
       return {
         resulteEmail: JSON.parse(JSON.stringify(checkEmail)),
-        resulteAddress: JSON.parse(JSON.stringify(checkAddress)),
+        // resulteAddress: JSON.parse(JSON.stringify(checkAddress)),
         resulteBasket: JSON.parse(JSON.stringify(checkBasketDb)),
       };
     } else {

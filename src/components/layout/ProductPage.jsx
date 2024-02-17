@@ -7,22 +7,35 @@ import InfoProduct from './InfoProduct';
 import { basketDb } from '@/controller/basket/BasketDb';
 import { handeldesCountInStock } from '@/controller/products/ShowProducts';
 import FadeLoader from 'react-spinners/FadeLoader';
+import { handleFindAddress } from '@/controller/address/ShowAddress';
+import { useRouter } from 'next/navigation';
 function ProductPage({ product }) {
+   const router = useRouter();
   const [active, setActive] = useState(product?.img[0]);
   const { dispatch, state } = useContext(ContextStore);
-  const { message, cartItem, userConnect } = state;
+  const { message, cartItem, userConnect, address } = state;
   const [loading, setLoading] = useState(false);
-  console.log('add product to cartItem ',cartItem);
+  console.log('add product to cartItem ', cartItem);
   const handelAddProduct = async (product) => {
     const exist = cartItem.some((item) => item._id === product._id);
+    const existAddress = address.some(
+      (item) => item._id === userConnect[0]._id
+    );
+    console.log(existAddress);
     try {
-      if (!exist) {
+      if (!exist && !existAddress) {
         dispatch({ type: 'ADDITEM', payload: product });
         dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
         setTimeout(async () => {
           await basketDb({ product, userConnect });
           await handeldesCountInStock(product._id);
-        });
+          const { address } = await handleFindAddress(userConnect[0]?._id);
+          if (!address) {
+            router.push('/basket/addressUser');
+          } else {
+            dispatch({ type: 'ADDRESS', payload: exist });
+          }
+        },200);
       } else {
         dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
       }
@@ -44,6 +57,17 @@ function ProductPage({ product }) {
       setLoading(false);
     }, 2000);
   }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const exist = await handleFindAddress(userConnect[0]._id);
+  //     if (!exist) {
+  //       router.push('/basket/addressUser');
+  //     } else {
+  //       dispatch({ type: 'ADDRESS', payload: exist });
+  //     }
+  //     fetchData();
+  //   };
+  // }, [existAddress]);
   return (
     <>
       {loading ? (
@@ -53,7 +77,7 @@ function ProductPage({ product }) {
         </div>
       ) : (
         <>
-            <section
+          <section
             className="flex flex-col 
              justify-center items-center flex-wrap 
               gap-10 mt-8 transition-all duration-[2000s]"

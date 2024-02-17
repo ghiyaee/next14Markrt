@@ -1,8 +1,10 @@
 'use client';
-import handelNewAddress from '@/controller/address/ShowAddress';
-import { useState, useContext } from 'react';
+import { handelNewAddress } from '@/controller/address/ShowAddress';
+import { useState, useContext, useReducer } from 'react';
 import { ContextStore } from '@/context/contextStore';
+import { useRouter } from 'next/navigation';
 function AddressUser() {
+  const router = useRouter();
   const { state, dispatch } = useContext(ContextStore);
   const { userConnect } = state;
   const [ostan, setOstan] = useState('');
@@ -45,7 +47,7 @@ function AddressUser() {
               return;
             }
 
-            const { msg } = await handelNewAddress({
+            const { msg,address } = await handelNewAddress({
               ostan,
               city,
               street,
@@ -57,6 +59,8 @@ function AddressUser() {
             setMessage(msg);
             setTimeout(() => {
               setMessage('');
+              dispatch({ type: 'ADDRESS',payload:address });
+              router.push('/basket');
             }, 2000);
           }}
           className="flex flex-col gap-2 w-[50%]  p-6

@@ -13,11 +13,19 @@ async function handelNewAddress(data) {
     });
     await address.save()
     if (address) {
-      return {msg:'ثبت آدرس انجام شد'}
+      return {msg:'ثبت آدرس انجام شد',address:JSON.parse(JSON.stringify(address))}
     }
     return {msg:'ثبت انجام نشد'}
   } catch (error) {
     console.log(error, 'this error at addressUser');
   }
 }
-export default handelNewAddress;
+async function handleFindAddress(data) {
+  try {
+    const address = await Address.findOne({ user_id: data })
+    return {address:JSON.parse(JSON.stringify(address))}
+  } catch (error) {
+    console.log(error,'edit address');
+  }
+}
+export { handleFindAddress, handelNewAddress };

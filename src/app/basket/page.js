@@ -23,7 +23,7 @@ function BasketPage() {
   const [isActive, setIsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const router = useRouter();
-  console.log('add prodcut to basket context', cartItem);
+  console.log('add prodcut to basket context', address);
   const handelWarningProduct = (item) => {
     setSelectedItem(item);
     setWarning(true);
@@ -224,21 +224,21 @@ function BasketPage() {
                         <div>{cartTotal}</div>
                       </div>
                       <div className="text-center py-2 px-4 mt-3">
-                        {address[0] === null ? (
+                        {/* {address.length === 0 ? (
                           <Link
                             href={'/basket/addressUser'}
-                            className="bg-primary text-gray-50 p-0"
+                            className="bg-primary text-gray-50 p-1"
                           >
                             ثبت آدرس
                           </Link>
-                        ) : (
+                        ) : ( */}
                           <Link
                             href={'/checkOut'}
                             className="bg-primary rounded-full text-gray-50 py-1 px-4"
                           >
                             نهایی کردن سفارش
                           </Link>
-                        )}
+                        {/* )} */}
                       </div>
                     </div>
                   </div>

@@ -35,7 +35,7 @@ function Login() {
           console.log('frist that emty basket'+ resulteBasket);
           if (resulteEmail) {
             dispatch({ type: 'USERLOGIN', payload: resulteEmail });
-            dispatch({ type: 'ADDRESS', payload: resulteAddress });
+            // dispatch({ type: 'ADDRESS', payload: resulteAddress });
             if (resulteBasket.length > 0) {
               dispatch({ type: 'ADDITEM', payload: resulteBasket });
             }
