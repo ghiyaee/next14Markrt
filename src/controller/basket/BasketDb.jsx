@@ -5,7 +5,7 @@ async function basketDb({ product, userConnect }) {
     const newProduct = new BasketDb({
       product_id: product._id,
       user_id: userConnect[0]._id,
-    });
+         });
     await newProduct.save();
   } catch (error) {
     console.log(error + 'error at save data to db');

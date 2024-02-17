@@ -27,15 +27,12 @@ function Login() {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const { resulteEmail, resulteAddress, resulteBasket, msgError } =
-            await handelLogin({
-              email,
-              password,
-            });
-          console.log('frist that emty basket'+ resulteBasket);
+          const { resulteEmail, resulteBasket, msgError } = await handelLogin({
+            email,
+            password,
+          });
           if (resulteEmail) {
             dispatch({ type: 'USERLOGIN', payload: resulteEmail });
-            // dispatch({ type: 'ADDRESS', payload: resulteAddress });
             if (resulteBasket.length > 0) {
               dispatch({ type: 'ADDITEM', payload: resulteBasket });
             }

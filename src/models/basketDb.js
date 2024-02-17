@@ -3,8 +3,17 @@ import User from './user';
 import Product from './products';
 const schemaBasket = new mongoose.Schema(
   {
-    product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    idCode: { type: Number, default: 1402000, min: 1402000, required: true },
+    product_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      required: true,
+    },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     quantity: { type: Number, default: 1 },
     tax: { type: Number, default: 0 },
     productTotal: { type: Number, default: 0 },
@@ -14,6 +23,5 @@ const schemaBasket = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 const BasketDb = mongoose.model('BasketDb', schemaBasket);
 export default BasketDb;

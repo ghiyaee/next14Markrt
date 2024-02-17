@@ -27,7 +27,7 @@ function ProductPage({ product }) {
         dispatch({ type: 'ADDITEM', payload: product });
         dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
         setTimeout(async () => {
-          await basketDb({ product, userConnect });
+          await basketDb({ product, userConnect ,});
           await handeldesCountInStock(product._id);
           const { address } = await handleFindAddress(userConnect[0]?._id);
           if (!address) {
@@ -57,17 +57,6 @@ function ProductPage({ product }) {
       setLoading(false);
     }, 2000);
   }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const exist = await handleFindAddress(userConnect[0]._id);
-  //     if (!exist) {
-  //       router.push('/basket/addressUser');
-  //     } else {
-  //       dispatch({ type: 'ADDRESS', payload: exist });
-  //     }
-  //     fetchData();
-  //   };
-  // }, [existAddress]);
   return (
     <>
       {loading ? (
