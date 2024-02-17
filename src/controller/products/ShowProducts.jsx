@@ -18,7 +18,6 @@ const handelProduct = async (id) => {
 };
 
 const handelEditProduct = async (data) => {
-  console.log(data);
   try {
     const product = await Product.findOneAndUpdate(
       { _id: data.id },
@@ -40,7 +39,6 @@ const handelEditProduct = async (data) => {
   }
 };
 const handelNewProduct = async (data) => {
-  console.log(data);
   try {
     const product = new Product({
       name: data.name,

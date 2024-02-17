@@ -28,7 +28,7 @@ function ProductsPage() {
        bg-gradient-to-tr from-yellow-300 to-transparent"
       >
         <h2 className="py-2">لیست محصولات</h2>
-        {products?.map((product) => (
+        {products?.map((product,idx) => (
           <div
             key={product._id}
             className="flex 
@@ -38,6 +38,7 @@ function ProductsPage() {
             p-2 justify-between m-0"
           >
             <div className="flex items-center gap-6 flex-1">
+                <p>{idx+1 }</p>
               <div className=" relative w-10 h-10">
                 <Image
                   src={product.img[0]}

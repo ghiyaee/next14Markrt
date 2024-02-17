@@ -1,9 +1,14 @@
 'use client';
 import DashboardUser from '@/components/layout/DashboardUser';
 import { useState, useContext, useEffect } from 'react';
-import { handleFindAddress } from '@/controller/address/ShowAddress';
+import { useRouter } from 'next/navigation';
+import {
+  handleFindAddress,
+  handelUpdateAddress,
+} from '@/controller/address/ShowAddress';
 import { ContextStore } from '@/context/contextStore';
 export default function EditAddress() {
+  const router = useRouter();
   const { state } = useContext(ContextStore);
   const { userConnect } = state;
   const [ostan, setOstan] = useState('');
@@ -15,14 +20,13 @@ export default function EditAddress() {
   const [message, setMessage] = useState('');
   useEffect(() => {
     const fechData = async () => {
-      const { ostan, city, street, codePost, tell, mobile } =
-        await handleFindAddress(userConnect[0]._id);
-      setCity(city);
-      setCodePost(codePost);
-      setMobile(mobile);
-      setOstan(ostan);
-      setStreet(street);
-      setTell(tell);
+      const { address } = await handleFindAddress(userConnect[0]._id);
+      setCity(address?.city);
+      setCodePost(address?.codePost);
+      setMobile(address?.mobile);
+      setOstan(address?.ostan);
+      setStreet(address?.street);
+      setTell(address?.tell);
     };
     fechData();
   }, []);
@@ -63,8 +67,7 @@ export default function EditAddress() {
                 }, 2000);
                 return;
               }
-
-              const { msg } = await handelNewAddress({
+              const { msg } = await handelUpdateAddress({
                 ostan,
                 city,
                 street,
@@ -76,6 +79,7 @@ export default function EditAddress() {
               setMessage(msg);
               setTimeout(() => {
                 setMessage('');
+                router.push('/dashboardUser');
               }, 2000);
             }}
             className="flex flex-col gap-2 w-[50%]  p-6

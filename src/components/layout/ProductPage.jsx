@@ -18,12 +18,12 @@ function ProductPage({ product }) {
   console.log('add product to cartItem ', cartItem);
   const handelAddProduct = async (product) => {
     const exist = cartItem.some((item) => item._id === product._id);
-    const existAddress = address.some(
-      (item) => item._id === userConnect[0]._id
-    );
-    console.log(existAddress);
+    // const existAddress = address.some(
+    //   (item) => item._id === userConnect[0]._id
+    // );
+    // console.log(existAddress);
     try {
-      if (!exist && !existAddress) {
+      if (!exist ) {
         dispatch({ type: 'ADDITEM', payload: product });
         dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
         setTimeout(async () => {
@@ -46,7 +46,7 @@ function ProductPage({ product }) {
   useEffect(() => {
     const time = setTimeout(() => {
       dispatch({ type: 'MESSAGEBUY', payload: '' });
-    }, 3000);
+    }, 4000);
     return () => {
       clearTimeout(time);
     };
