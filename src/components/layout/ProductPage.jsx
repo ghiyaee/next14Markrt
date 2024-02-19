@@ -18,16 +18,12 @@ function ProductPage({ product }) {
   console.log('add product to cartItem ', cartItem);
   const handelAddProduct = async (product) => {
     const exist = cartItem.some((item) => item._id === product._id);
-    // const existAddress = address.some(
-    //   (item) => item._id === userConnect[0]._id
-    // );
-    // console.log(existAddress);
     try {
       if (!exist ) {
         dispatch({ type: 'ADDITEM', payload: product });
         dispatch({ type: 'MESSAGEBUY', payload: 'به سبدخریداضافه شد' });
         setTimeout(async () => {
-          await basketDb({ product, userConnect ,});
+          await basketDb({ product, userConnect });
           await handeldesCountInStock(product._id);
           const { address } = await handleFindAddress(userConnect[0]?._id);
           if (!address) {

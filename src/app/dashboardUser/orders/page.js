@@ -42,7 +42,7 @@ export default function Orders() {
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-                <p className="w-36">کد سفارش : {order._id.slice(-6)}</p>
+                <p className="w-42">کد سفارش : {order.idCode}</p>
                 <Image
                   width={40}
                   height={40}

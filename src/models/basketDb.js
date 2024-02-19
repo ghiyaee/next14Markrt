@@ -3,7 +3,7 @@ import User from './user';
 import Product from './products';
 const schemaBasket = new mongoose.Schema(
   {
-    idCode: { type: Number, default: 1402000, min: 1402000, required: true },
+    idCode: { type: Number,unique:true},
     product_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
