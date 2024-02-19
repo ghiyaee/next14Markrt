@@ -31,33 +31,43 @@ export default function Orders() {
             {orders?.map((order, idx) => (
               <div
                 key={order._id}
-                className="flex gap-8  p-2 items-center border 
-                 hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
-                  hover:border-x-2 h-12 "
+                className="flex 
+           border-green-500 w-[65rem] items-center 
+           hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
+           hover:border-x-2 
+            p-2 justify-between gap-4"
               >
-                <p>{idx + 1}</p>
-                <p>نام کاربر : {order.user_id.name}</p>
-                <p className="">
-                  تاریخ و ساعت سفارش :
-                  {moment(order.orderData)
-                    .locale('fa')
-                    .format('HH:D YYYY/MM/DD')}
-                </p>
-                <p className="">کد سفارش : {order._id.slice(-6)}</p>
-                <Image
-                  width={40}
-                  height={40}
-                  alt="mobile"
-                  src={
-                    order.product_id ? order.product_id?.img[0] : order.img[0]
-                  }
-                  priority={true}
-                />
-                <p>تعداد : {order.quantity}</p>
-                <p className="w-36 text-center">
-                  مدل : {order.product_id ? order.product_id?.name : order.name}
-                </p>
-                <div className="w-42">
+                <div className="flex items-center  w-[800px]">
+                  <div className='flex items-center gap-2'>
+                    <p>{idx + 1}</p>
+                    <p>نام کاربر : {order.user_id.name}</p>
+                    <p className="">
+                      تاریخ و ساعت سفارش :
+                      {moment(order.orderData)
+                        .locale('fa')
+                        .format('HH:D YYYY/MM/DD')}
+                    </p>
+                    <p className="">کد سفارش : {order.idCode}</p>
+                    <Image
+                      width={40}
+                      height={40}
+                      alt="mobile"
+                      src={
+                        order.product_id
+                          ? order.product_id?.img[0]
+                          : order.img[0]
+                      }
+                      priority={true}
+                    />
+                    <p>تعداد : {order.quantity}</p>
+                    <p className=" text-center">
+                      مدل :{' '}
+                      {order.product_id ? order.product_id?.name : order.name}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="">
                   <button
                     onClick={async (e) => {
                       e.preventDefault();

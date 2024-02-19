@@ -32,7 +32,7 @@ function ProductsPage() {
           <div
             key={product._id}
             className="flex 
-           border-blue-500 w-[60rem] items-center 
+           border-green-500 w-[60rem] items-center 
            hover:shadow-[0_25px_25px_-24px_rgb(0,0,0,0.7)]
            hover:border-x-2 
             p-2 justify-between m-0"

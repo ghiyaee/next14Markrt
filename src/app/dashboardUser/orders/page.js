@@ -42,7 +42,7 @@ export default function Orders() {
                     .locale('fa')
                     .format('HH:D YYYY/MM/DD')}
                 </p>
-                <p className="w-42">کد سفارش : {order.idCode}</p>
+                <p className="">کد سفارش : {order.idCode}</p>
                 <Image
                   width={40}
                   height={40}
@@ -53,10 +53,10 @@ export default function Orders() {
                   priority={true}
                 />
                 <p> تعداد : {order.quantity}</p>
-                <p className="w-20 text-center">
+                <p className=" text-center">
                   {order.product_id ? order.product_id?.name : order.name}
                 </p>
-                <p className="w-42">
+                <p className="">
                   وضعیت :{' '}
                   {order.sending ? 'ارسال شد' : 'درحال بسته بندی و ارسال'}
                 </p>
