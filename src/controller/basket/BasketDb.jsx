@@ -1,14 +1,15 @@
 'use server';
 import BasketDb from '@/models/basketDb';
+import Counter from '@/models/idCode';
+import moment from 'jalali-moment';
 async function basketDb({ product, userConnect }) {
   try {
     const newProduct = new BasketDb({
       product_id: product._id,
       user_id: userConnect[0]._id,
-      idCode: await generateUniqueIDCode() 
+      idCode: await generateUniqueIDCode(),
     });
     await newProduct.save();
-    
   } catch (error) {
     console.log(error + 'error at save data to db');
   }
@@ -27,7 +28,6 @@ const handelAddUpdataBasket = async (product) => {
     console.log(error);
   }
 };
-
 const handelDecUpdataBasket = async (product) => {
   try {
     const products = await BasketDb.findOneAndUpdate(
@@ -83,10 +83,20 @@ const handleUpdateBasket = async (cartItem, tax, productTotal) => {
   );
 };
 async function generateUniqueIDCode() {
- const year = new Date().getFullYear(); // 4 رقم سال جاری را به دست می‌آوریم
- const randomCode = Math.floor(Math.random() * 10000); // یک عدد تصادفی چهار رقمی تولید می‌کنیم
-  const idCode = parseInt(`${year}${randomCode.toString().padStart(4, '0')}`);
-  return idCode
+  const year = moment(new Date().getFullYear().toString())
+    .locale('fa')
+    .format('YYYY');
+  const counter = await Counter.findById({ _id: year });
+  if (counter) {
+    counter.counter++;
+    await counter.save();
+  } else {
+    new Counter({ _id: year, counter: 1 }).save();
+  }
+  const idCode = parseInt(
+    `${year}${counter.counter.toString().padStart(4, '0')}`
+  );
+  return idCode;
 }
 export {
   basketDb,
