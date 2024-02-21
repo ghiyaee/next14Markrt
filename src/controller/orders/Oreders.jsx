@@ -32,4 +32,8 @@ const handleSendOrder = async (id) => {
   }
 
 }
-export { handleOrder, handleOrders, handleSendOrder };
+const handleAllOrders = async () => {
+  const deposits = await BasketDb.find().populate(['user_id','product_id'])
+  return {deposits:JSON.parse(JSON.stringify(deposits))}
+}
+export { handleOrder, handleOrders, handleSendOrder, handleAllOrders };

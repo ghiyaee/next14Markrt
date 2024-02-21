@@ -25,7 +25,8 @@ input{
 }
 .style-button {
   @apply bg-primary text-gray-50 p-1  duration-300 
- border-blue-500  hover:py-2 hover:shadow-[0_25px_55px_-24px_rgb(0,0,0,0.7)]
-   hover:border-x-2 text-center;
+ border-blue-500  
+    text-center;
 }
+
 
