@@ -31,7 +31,7 @@ function ProductPage({ product }) {
           } else {
             dispatch({ type: 'ADDRESS', payload: exist });
           }
-        },200);
+        },400);
       } else {
         dispatch({ type: 'MESSAGEBUY', payload: 'محصول قبلا وارد سبدخریدشده' });
       }

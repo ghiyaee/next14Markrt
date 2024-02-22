@@ -224,20 +224,12 @@ function BasketPage() {
                         <div>{cartTotal}</div>
                       </div>
                       <div className="text-center py-2 px-4 mt-3">
-                        {/* {address.length === 0 ? (
-                          <Link
-                            href={'/basket/addressUser'}
-                            className="bg-primary text-gray-50 p-1"
-                          >
-                            ثبت آدرس
-                          </Link>
-                        ) : ( */}
-                          <Link
-                            href={'/checkOut'}
-                            className="bg-primary rounded-full text-gray-50 py-1 px-4"
-                          >
-                            نهایی کردن سفارش
-                          </Link>
+                        <Link
+                          href={'/checkOut'}
+                          className="bg-primary rounded-full text-gray-50 py-1 px-4"
+                        >
+                          نهایی کردن سفارش
+                        </Link>
                         {/* )} */}
                       </div>
                     </div>

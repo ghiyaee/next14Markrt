@@ -78,9 +78,10 @@ const handleUpdateBasket = async (cartItem, tax, productTotal) => {
     return;
   }
   const product = await BasketDb.findOneAndUpdate(
-    { product_id: id },
-    { tax: tax, productTotal: productTotal, status: true }
+    {$and:[ {product_id: id ,status:false}]},
+    {$set:{ tax: tax, productTotal: productTotal, status: true }}
   );
+  console.log(product);
 };
 async function generateUniqueIDCode() {
   const year = moment(new Date().getFullYear().toString())
