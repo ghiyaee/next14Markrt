@@ -32,7 +32,7 @@ const Deposits = () => {
               <p className='mr-[28px]'>مالیات</p>
               <p className='mr-[45px]'>جمع محصول</p>
             </div>
-            <div className="border border-red-500 my-div overflow-auto h-[300px] p-2">
+            <div className="border-2 border-red-500 my-div overflow-auto h-[300px] p-2">
               {deposits?.map((order, idx) => (
                 <>
                   <div

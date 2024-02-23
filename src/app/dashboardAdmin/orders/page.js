@@ -28,7 +28,7 @@ export default function Orders() {
         <h2 className="p-4">لیست سفارشات </h2>
         {orders?.length > 0 ? (
           <>
-            <div className="border border-red-500 my-div overflow-auto h-[350px] p-2">
+            <div className="border-2 border-red-500 my-div overflow-auto h-[350px] p-2">
               {orders?.map((order, idx) => (
                 <div
                   key={order._id}
